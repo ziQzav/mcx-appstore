@@ -9,7 +9,6 @@ services:
 
   agent:
     image: nousresearch/hermes-agent:latest@sha256:9c5561579f3ffdf333401797094ac3a743738d6c25d40f4331c7bf77b694238d
-    user: "1000:1000"
     init: true
     restart: on-failure
     command: ["gateway", "run"]
@@ -39,7 +38,6 @@ services:
 
   workspace:
     image: ghcr.io/outsourc-e/hermes-workspace:latest@sha256:1ec05339750da7caaf1cd0183c8c3b188856918b377407b4ac1dafca67e42d88
-    user: "1000:1000"
     init: true
     restart: on-failure
     depends_on:
