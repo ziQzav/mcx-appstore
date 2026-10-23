@@ -5,7 +5,7 @@ services:
     environment:
       # Format: <app-id>_<docker-service-name>_1
       APP_HOST: mcx-hermes-workspace_workspace_1
-      APP_PORT: 48771
+      APP_PORT: 21671
 
   agent:
     image: nousresearch/hermes-agent:latest@sha256:9c5561579f3ffdf333401797094ac3a743738d6c25d40f4331c7bf77b694238d
@@ -23,15 +23,15 @@ services:
       HERMES_UID: "1000"
       HERMES_DASHBOARD: "1"
       HERMES_DASHBOARD_HOST: 0.0.0.0
-      HERMES_DASHBOARD_PORT: "48773"
+      HERMES_DASHBOARD_PORT: "21673"
       API_SERVER_KEY: ${APP_API_SERVER_KEY}
       API_SERVER_HOST: 0.0.0.0
-      API_SERVER_PORT: "48772"
+      API_SERVER_PORT: "21672"
       API_SERVER_ENABLED: "true"
     volumes:
       - ${APP_DATA_DIR}/agent-data:/opt/data
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:48772/health && curl -fsS http://localhost:48773/api/status || exit 1"]
+      test: ["CMD-SHELL", "curl -fsS http://localhost:21672/health && curl -fsS http://localhost:21673/api/status || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -46,11 +46,11 @@ services:
       agent:
         condition: service_healthy
     environment:
-      PORT: "48771"
+      PORT: "21671"
       HERMES_HOME: /home/workspace/.hermes
       HERMES_WORKSPACE_DIR: /workspace
-      HERMES_API_URL: http://agent:48772
-      HERMES_DASHBOARD_URL: http://agent:48773
+      HERMES_API_URL: http://agent:21672
+      HERMES_DASHBOARD_URL: http://agent:21673
       HERMES_API_TOKEN: ${APP_API_SERVER_KEY}
       HERMES_PASSWORD: ${APP_PASSWORD}
     volumes:
