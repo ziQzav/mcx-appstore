@@ -1,0 +1,36 @@
+manifestVersion: 1
+id: mcx-hermes-workspace
+name: Hermes Workspace
+tagline: Your AI agent's command center
+icon: https://raw.githubusercontent.com/outsourc-e/hermes-workspace/main/public/claude-avatar.webp
+category: developer
+version: "2.3.0"
+port: 3000
+description: >-
+  Your AI agent's command center — chat, files, memory, skills, jobs, MCP,
+  terminal, and a multi-agent control plane in one interface.
+
+
+  Hermes Workspace runs on vanilla NousResearch hermes-agent (installed in
+  the bundled agent container) and connects to its gateway automatically.
+
+
+  Setup: after install, the workspace login password is the app password
+  umbrelOS generated for this app. Add at least one LLM provider key to the
+  agent config (via the workspace settings or terminal) before chatting.
+developer: outsourc-e
+website: https://github.com/outsourc-e/hermes-workspace
+submitter: MCX
+submission: https://github.com/outsourc-e/hermes-workspace
+repo: https://github.com/outsourc-e/hermes-workspace
+support: https://github.com/outsourc-e/hermes-workspace/issues
+gallery:
+  - https://raw.githubusercontent.com/outsourc-e/hermes-workspace/main/docs/screenshots/splash.png
+  - https://raw.githubusercontent.com/outsourc-e/hermes-workspace/main/docs/screenshots/chat.png
+  - https://raw.githubusercontent.com/outsourc-e/hermes-workspace/main/docs/screenshots/dashboard.png
+releaseNotes: >-
+  Initial Umbrel release of Hermes Workspace 2.3.0.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
