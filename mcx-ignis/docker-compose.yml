@@ -4,7 +4,7 @@ services:
   app_proxy:
     environment:
       # Format: <app-id>_<docker-service-name>_1
-      APP_HOST: ignis_ignis_1
+      APP_HOST: mcx-ignis_ignis_1
       APP_PORT: 8080
 
   ignis:
