@@ -1,0 +1,2 @@
+id: "mcx" # Store ID: sadece harf ve tire. UI'da "MCX App Store" olarak görünür.
+name: "MCX" # Store adı. UI'da "<name> App Store" olarak görünür.

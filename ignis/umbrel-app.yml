@@ -1,0 +1,42 @@
+manifestVersion: 1
+id: ignis
+name: Ignis
+tagline: Run Obsidian in your browser
+icon: https://raw.githubusercontent.com/Nystik-gh/ignis/main/images/ignis.png
+category: files
+version: "0.8.18"
+port: 8080
+description: >-
+  Ignis runs Obsidian in the browser — no remote desktop required.
+
+  It is a compatibility shim that provides browser-compatible implementations
+  of the Electron APIs used by Obsidian, so Obsidian runs in a standard
+  browser while your vault stays on your umbrelOS server.
+
+
+  The Docker container downloads Obsidian directly from its official source
+  on first run, so give it a minute or two on the first start.
+
+
+  With no vaults yet, Ignis opens the vault manager to create your first one.
+
+
+  Note: Ignis has no built-in authentication. Keep your umbrelOS login
+  requirement on for the app proxy (it is on by default), and do not expose
+  the app port publicly.
+developer: Nystik-gh
+website: https://github.com/Nystik-gh/ignis
+submitter: MCX
+submission: https://github.com/Nystik-gh/ignis
+repo: https://github.com/Nystik-gh/ignis
+support: https://github.com/Nystik-gh/ignis/issues
+gallery:
+  - https://raw.githubusercontent.com/Nystik-gh/ignis/main/apps/docs/src/assets/ignis.png
+  - https://raw.githubusercontent.com/Nystik-gh/ignis/main/apps/docs/src/assets/ignis.png
+  - https://raw.githubusercontent.com/Nystik-gh/ignis/main/apps/docs/src/assets/ignis.png
+releaseNotes: >-
+  Initial Umbrel release of Ignis 0.8.18.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

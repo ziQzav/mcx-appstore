@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # Format: <app-id>_<docker-service-name>_1
+      APP_HOST: ignis_ignis_1
+      APP_PORT: 8080
+
+  ignis:
+    image: nobbe/ignis:0.8.18@sha256:f7f6a26b46d9306b11bd3888683dc4d1ec439288e97d798f15469fdf731ff814
+    user: "1000:1000"
+    init: true
+    restart: on-failure
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ${APP_DATA_DIR}/vaults:/vaults
+      - ${APP_DATA_DIR}/data:/app/data
+      - obsidian-app:/app/obsidian-app
+
+volumes:
+  obsidian-app:
