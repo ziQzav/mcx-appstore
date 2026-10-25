@@ -29,20 +29,12 @@ services:
       API_SERVER_ENABLED: "true"
     volumes:
       - ${APP_DATA_DIR}/agent-data:/opt/data
-    healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://localhost:8642/health && curl -fsS http://localhost:9119/api/status || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 60s
-
   workspace:
     image: ghcr.io/outsourc-e/hermes-workspace:latest@sha256:1ec05339750da7caaf1cd0183c8c3b188856918b377407b4ac1dafca67e42d88
     init: true
     restart: on-failure
     depends_on:
-      agent:
-        condition: service_healthy
+      - agent
     environment:
       PORT: "24676"
       HERMES_HOME: /home/workspace/.hermes
