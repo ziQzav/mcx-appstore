@@ -8,7 +8,7 @@ services:
       APP_PORT: 24674
 
   web:
-    image: ghcr.io/ziqzav/mcx-mercury-agent:v1.4.2@sha256:02e27659a3263e6df66fc2a9a4b624c0117702ba55d022929354a1447575ac2d
+    image: ghcr.io/ziqzav/mcx-mercury-agent:v1.4.2@sha256:sha256:4c8e2e7912d2faf81f17f3e10c559eaf0a2a345f914886caecb4aaeaf32a56f4
     init: true
     restart: on-failure
     environment:
