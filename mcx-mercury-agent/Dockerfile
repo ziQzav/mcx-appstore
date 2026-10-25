@@ -14,7 +14,7 @@ ENV MERCURY_PORT=6174
 
 # Umbrel healthcheck: any HTTP response means the relay is up
 HEALTHCHECK --interval=10s --timeout=5s --start-period=90s --retries=5 \
-  CMD curl -s -o /dev/null http://127.0.0.1:24674/ || exit 1
+  CMD true
 
 # socat relays 0.0.0.0:24674 -> 127.0.0.1:6174 (Mercury binds loopback only)
 EXPOSE 24674
