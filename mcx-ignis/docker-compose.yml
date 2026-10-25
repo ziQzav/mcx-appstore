@@ -9,7 +9,9 @@ services:
 
   ignis:
     image: nobbe/ignis:0.8.18@sha256:f7f6a26b46d9306b11bd3888683dc4d1ec439288e97d798f15469fdf731ff814
-    user: "1000:1000"
+    # No `user:` override: the entrypoint must start as root (it creates the
+    # runtime user, chowns volumes and extracts Obsidian) and then drops to
+    # PUID/PGID via gosu at exec.
     init: true
     restart: on-failure
     environment:
