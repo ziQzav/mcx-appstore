@@ -5,7 +5,7 @@ services:
     environment:
       # Format: <app-id>_<docker-service-name>_1
       APP_HOST: mcx-hermes-workspace_workspace_1
-      APP_PORT: 3000
+      APP_PORT: 24676
 
   agent:
     image: nousresearch/hermes-agent:latest@sha256:9c5561579f3ffdf333401797094ac3a743738d6c25d40f4331c7bf77b694238d
@@ -44,7 +44,7 @@ services:
       agent:
         condition: service_healthy
     environment:
-      PORT: "3000"
+      PORT: "24676"
       HERMES_HOME: /home/workspace/.hermes
       HERMES_WORKSPACE_DIR: /workspace
       HERMES_API_URL: http://agent:8642

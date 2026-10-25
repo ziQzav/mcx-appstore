@@ -5,7 +5,7 @@ services:
     environment:
       # Format: <app-id>_<docker-service-name>_1
       APP_HOST: mcx-ignis_ignis_1
-      APP_PORT: 8080
+      APP_PORT: 24675
 
   ignis:
     image: nobbe/ignis:0.8.18@sha256:f7f6a26b46d9306b11bd3888683dc4d1ec439288e97d798f15469fdf731ff814
@@ -15,6 +15,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
+      - PORT=24675
     volumes:
       - ${APP_DATA_DIR}/vaults:/vaults
       - ${APP_DATA_DIR}/data:/app/data
