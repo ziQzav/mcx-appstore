@@ -4,7 +4,7 @@ name: Mercury Agent
 tagline: The soul-driven AI agent that lives on your server
 icon: https://raw.githubusercontent.com/cosmicstack-labs/mercury-agent/main/docs/img/readme-hero-light.png
 category: ai
-version: "1.4.2-9"
+version: "1.4.2-10"
 port: 24674
 description: >-
   Mercury is an open-source AI agent with a personality you write yourself, a

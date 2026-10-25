@@ -2,6 +2,7 @@
 set -e
 
 export MERCURY_HOME="${MERCURY_HOME:-/data/mercury}"
+export MERCURY_WEB_ENABLED=true
 mkdir -p "$MERCURY_HOME"
 
 CONFIG="$MERCURY_HOME/mercury.yaml"
@@ -49,7 +50,9 @@ done
 (
   while true; do
     echo "=== entrypoint v8: starting mercury runtime ==="
-    script -qfc "mercury start -f -v" /dev/null || echo "=== mercury runtime exited (code $?) ==="
+    # Feed the boot-time permission prompt: arrow-down selects "Ask Me",
+    # Enter confirms; keep stdin open afterwards so the TUI stays alive.
+    ( printf '\033[B\n'; sleep infinity ) | script -qfc "mercury start -f -v" /dev/null || echo "=== mercury runtime exited (code $?) ==="
     sleep 5
   done
 ) &
