@@ -4,8 +4,8 @@ name: Duck-UI
 tagline: Open-source DuckDB workbench in your browser
 icon: https://raw.githubusercontent.com/caioricciuti/duck-ui/main/public/logo.png
 category: developer
-version: "2.5.1"
-port: 5522
+version: "2.5.1-2"
+port: 24677
 description: >-
   The fully open-source DuckDB workbench that runs in your browser.
 

@@ -4,8 +4,8 @@ services:
   app_proxy:
     environment:
       # Format: <app-id>_<docker-service-name>_1
-      APP_HOST: mcx-duck-ui_web_1
-      APP_PORT: 5522
+      APP_HOST: mcx-duck-ui_tls_1
+      APP_PORT: 24677
 
   web:
     image: ghcr.io/caioricciuti/duck-ui:latest@sha256:422478f52df5b623f38f6179b9de4decaec542d6136e5d97c8ba2badbb06d1bf
@@ -13,3 +13,10 @@ services:
     restart: on-failure
     environment:
       - DUCK_UI_ALLOW_UNSIGNED_EXTENSIONS=false
+
+  # Self-signed TLS so the browser gets a secure context (WebCrypto + OPFS).
+  # First visit shows a certificate warning: proceed once and it works.
+  tls:
+    image: caddy:2-alpine
+    restart: on-failure
+    command: sh -c "printf ':24677 {\n  tls internal\n  reverse_proxy web:5522\n}\n' > /tmp/Caddyfile && caddy run --config /tmp/Caddyfile"
