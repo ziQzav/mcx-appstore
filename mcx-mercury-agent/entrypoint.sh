@@ -35,10 +35,15 @@ if [ -n "${OPENAI_COMPAT_API_KEY:-}" ]; then
   export DEFAULT_PROVIDER="${DEFAULT_PROVIDER:-openaiCompat}"
 fi
 
-# Dashboard login: umbrelOS app password (username: mercury)
-if [ -n "${APP_PASSWORD:-}" ]; then
-  mercury web-reset-password "${APP_PASSWORD}" >/dev/null 2>&1 || \
+# Dashboard login (username: mercury). Password source order:
+# user-set MERCURY_PASSWORD env -> umbrelOS app password (APP_PASSWORD).
+DASH_PW="${MERCURY_PASSWORD:-${APP_PASSWORD:-}}"
+if [ -n "$DASH_PW" ]; then
+  mercury web-reset-password "$DASH_PW" >/dev/null 2>&1 && \
+    echo "diag: dashboard password set from env" || \
     echo "warn: web password reset failed"
+else
+  echo "diag: no dashboard password env found (MERCURY_PASSWORD/APP_PASSWORD empty)"
 fi
 
 for v in OPENAI_API_KEY ANTHROPIC_API_KEY DEEPSEEK_API_KEY GROK_API_KEY OPENAI_COMPAT_API_KEY; do

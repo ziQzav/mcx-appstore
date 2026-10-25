@@ -14,6 +14,8 @@ services:
     environment:
       - MERCURY_HOME=/data/mercury
       - MERCURY_PORT=6174
+      - APP_PASSWORD=${APP_PASSWORD:-}
+      - MERCURY_PASSWORD=${MERCURY_PASSWORD:-}
       # Add provider keys in the app's Properties -> Environment:
       # e.g. OPENAI_API_KEY (and optionally OPENAI_MODEL, DEFAULT_PROVIDER)
       - DEFAULT_PROVIDER=${DEFAULT_PROVIDER:-}
