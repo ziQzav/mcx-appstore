@@ -22,22 +22,20 @@ fi
 # Dashboard login: umbrelOS app password (username: mercury)
 if [ -n "${APP_PASSWORD:-}" ]; then
   mercury web-reset-password "${APP_PASSWORD}" >/dev/null 2>&1 || \
-    echo "warn: web password reset failed (dashboard keeps its own init password)"
+    echo "warn: web password reset failed"
 fi
 
-# Supervisor: keep the background runtime alive; echo daemon logs to stdout
-# so `get_app_logs` can show why the dashboard is (not) listening.
+# Run the runtime in FOREGROUND (-f) inside a supervised subshell so its
+# stdout/stderr (and any crash reason) flow to container logs.
 (
   while true; do
-    mercury start >/dev/null 2>&1 || true
-    sleep 10
-    if ! kill -0 "$(pgrep -f 'mercury.*daemon' | head -1)" 2>/dev/null; then
-      echo "--- daemon.log (last 40 lines) ---"
-      tail -n 40 "$MERCURY_HOME/daemon.log" 2>/dev/null || echo "(no daemon.log)"
-    fi
-    sleep 20
+    echo "=== starting mercury runtime ==="
+    mercury start -f -v || echo "=== mercury runtime exited (code $?) ==="
+    sleep 5
   done
 ) &
+
+sleep 5
 
 # Relay: expose Mercury's loopback-only dashboard on 0.0.0.0:24674
 exec socat TCP-LISTEN:24674,fork,reuseaddr TCP:127.0.0.1:6174
