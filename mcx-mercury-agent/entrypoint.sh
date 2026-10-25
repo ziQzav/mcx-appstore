@@ -25,6 +25,10 @@ if [ -n "${APP_PASSWORD:-}" ]; then
     echo "warn: web password reset failed"
 fi
 
+for v in OPENAI_API_KEY ANTHROPIC_API_KEY DEEPSEEK_API_KEY GROK_API_KEY OPENAI_COMPAT_API_KEY; do
+  if [ -n "$(eval echo \$$v)" ]; then echo "diag: $v is SET"; else echo "diag: $v not set"; fi
+done
+
 # Run the runtime in FOREGROUND (-f) inside a supervised subshell so its
 # stdout/stderr (and any crash reason) flow to container logs.
 (
