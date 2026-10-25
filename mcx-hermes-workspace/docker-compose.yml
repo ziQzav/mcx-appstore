@@ -41,7 +41,7 @@ services:
       HERMES_API_URL: http://agent:8642
       HERMES_DASHBOARD_URL: http://agent:9119
       HERMES_API_TOKEN: ${APP_API_SERVER_KEY:-defaultkey}
-      HERMES_PASSWORD: ${APP_PASSWORD:-umbrel}
+      HERMES_PASSWORD: ${WORKSPACE_PASSWORD:-umbrel}
       COOKIE_SECURE: "0"
     volumes:
       - ${APP_DATA_DIR}/agent-data:/home/workspace/.hermes

@@ -4,7 +4,7 @@ name: Hermes Workspace
 tagline: Your AI agent's command center
 icon: https://raw.githubusercontent.com/outsourc-e/hermes-workspace/main/public/claude-avatar.webp
 category: developer
-version: "2.3.0-6"
+version: "2.3.0-7"
 port: 24676
 description: >-
   Your AI agent's command center — chat, files, memory, skills, jobs, MCP,
