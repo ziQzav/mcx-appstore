@@ -14,5 +14,21 @@ services:
     environment:
       - MERCURY_HOME=/data/mercury
       - MERCURY_PORT=6174
+      # Add provider keys in the app's Properties -> Environment:
+      # e.g. OPENAI_API_KEY (and optionally OPENAI_MODEL, DEFAULT_PROVIDER)
+      - DEFAULT_PROVIDER=${DEFAULT_PROVIDER:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_MODEL=${OPENAI_MODEL:-}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - ANTHROPIC_MODEL=${ANTHROPIC_MODEL:-}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+      - DEEPSEEK_MODEL=${DEEPSEEK_MODEL:-}
+      - GROK_API_KEY=${GROK_API_KEY:-}
+      - GROK_MODEL=${GROK_MODEL:-}
+      - OPENAI_COMPAT_API_KEY=${OPENAI_COMPAT_API_KEY:-}
+      - OPENAI_COMPAT_BASE_URL=${OPENAI_COMPAT_BASE_URL:-}
+      - OPENAI_COMPAT_MODEL=${OPENAI_COMPAT_MODEL:-}
+      - OPENAI_COMPAT_ENABLED=true
     volumes:
       - ${APP_DATA_DIR}/mercury:/data/mercury
