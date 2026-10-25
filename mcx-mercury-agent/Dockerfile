@@ -1,7 +1,7 @@
 FROM node:22-slim
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends socat curl git ca-certificates \
+  && apt-get install -y --no-install-recommends socat curl git ca-certificates util-linux \
   && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g @cosmicstack/mercury-agent@1.4.2

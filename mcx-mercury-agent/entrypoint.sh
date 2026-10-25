@@ -49,7 +49,7 @@ done
 (
   while true; do
     echo "=== entrypoint v8: starting mercury runtime ==="
-    mercury start -f -v || echo "=== mercury runtime exited (code $?) ==="
+    script -qfc "mercury start -f -v" /dev/null || echo "=== mercury runtime exited (code $?) ==="
     sleep 5
   done
 ) &
