@@ -1,0 +1,42 @@
+manifestVersion: 1
+id: mcx-mercury-agent
+name: Mercury Agent
+tagline: The soul-driven AI agent that lives on your server
+icon: https://raw.githubusercontent.com/cosmicstack-labs/mercury-agent/main/docs/img/readme-hero-light.png
+category: ai
+version: "1.4.2"
+port: 24674
+description: >-
+  Mercury is an open-source AI agent with a personality you write yourself, a
+  memory that stays on your disk, and a permission system that sits between
+  the model and your machine.
+
+
+  It reads and writes files, runs commands, ships code through git and
+  GitHub, researches the web and keeps a schedule — every action checked
+  against rules you set, every turn inside a daily token budget.
+
+
+  Access it from the web dashboard (chat, Kanban, memory explorer,
+  providers, skills), or hook up Telegram, Discord, Slack and Signal.
+
+
+  Login: username `mercury`, password is the app password umbrelOS shows
+  in this app's properties. Add at least one provider API key from the
+  dashboard's Providers page before chatting.
+developer: cosmicstack-labs
+website: https://mercuryagent.sh
+submitter: MCX
+submission: https://github.com/cosmicstack-labs/mercury-agent
+repo: https://github.com/cosmicstack-labs/mercury-agent
+support: https://github.com/cosmicstack-labs/mercury-agent/issues
+gallery:
+  - https://raw.githubusercontent.com/cosmicstack-labs/mercury-agent/main/docs/img/readme-hero-light.png
+  - https://raw.githubusercontent.com/cosmicstack-labs/mercury-agent/main/docs/img/readme-hero-dark.png
+  - https://raw.githubusercontent.com/cosmicstack-labs/mercury-agent/main/docs/img/readme-hero-light.png
+releaseNotes: >-
+  Initial Umbrel release of Mercury Agent 1.4.2.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

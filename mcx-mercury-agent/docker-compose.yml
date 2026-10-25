@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # Format: <app-id>_<docker-service-name>_1
+      APP_HOST: mcx-mercury-agent_web_1
+      APP_PORT: 24674
+
+  web:
+    image: ghcr.io/ziqzav/mcx-mercury-agent:v1.4.2
+    init: true
+    restart: on-failure
+    environment:
+      - MERCURY_HOME=/data/mercury
+      - MERCURY_PORT=6174
+    volumes:
+      - ${APP_DATA_DIR}/mercury:/data/mercury
