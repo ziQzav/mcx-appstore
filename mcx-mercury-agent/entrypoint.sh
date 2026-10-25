@@ -19,6 +19,14 @@ web:
 EOF
 fi
 
+# OpenRouter defaults: openaiCompat needs baseUrl+model to register.
+if [ -n "${OPENAI_COMPAT_API_KEY:-}" ]; then
+  export OPENAI_COMPAT_ENABLED=true
+  export OPENAI_COMPAT_BASE_URL="${OPENAI_COMPAT_BASE_URL:-https://openrouter.ai/api/v1}"
+  export OPENAI_COMPAT_MODEL="${OPENAI_COMPAT_MODEL:-openai/gpt-4o-mini}"
+  export DEFAULT_PROVIDER="${DEFAULT_PROVIDER:-openaiCompat}"
+fi
+
 # Dashboard login: umbrelOS app password (username: mercury)
 if [ -n "${APP_PASSWORD:-}" ]; then
   mercury web-reset-password "${APP_PASSWORD}" >/dev/null 2>&1 || \
