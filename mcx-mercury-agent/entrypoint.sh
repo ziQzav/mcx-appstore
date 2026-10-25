@@ -50,6 +50,12 @@ for v in OPENAI_API_KEY ANTHROPIC_API_KEY DEEPSEEK_API_KEY GROK_API_KEY OPENAI_C
   if [ -n "$(eval echo \$$v)" ]; then echo "diag: $v is SET"; else echo "diag: $v not set"; fi
 done
 
+# Clear stale runtime state from a previous container run: the pid/attach
+# files live on the persistent volume, and a stale pid makes `mercury start`
+# attach instead of boot (then the watchdog kills it in a loop).
+mercury stop >/dev/null 2>&1 || true
+sleep 2
+
 # Run the runtime in FOREGROUND (-f) inside a supervised subshell so its
 # stdout/stderr (and any crash reason) flow to container logs.
 (
