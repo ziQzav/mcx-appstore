@@ -23,7 +23,7 @@ services:
       HERMES_DASHBOARD: "1"
       HERMES_DASHBOARD_HOST: 0.0.0.0
       HERMES_DASHBOARD_PORT: "9119"
-      API_SERVER_KEY: ${APP_API_SERVER_KEY}
+      API_SERVER_KEY: ${APP_API_SERVER_KEY:-defaultkey}
       API_SERVER_HOST: 0.0.0.0
       API_SERVER_PORT: "8642"
       API_SERVER_ENABLED: "true"
@@ -49,8 +49,8 @@ services:
       HERMES_WORKSPACE_DIR: /workspace
       HERMES_API_URL: http://agent:8642
       HERMES_DASHBOARD_URL: http://agent:9119
-      HERMES_API_TOKEN: ${APP_API_SERVER_KEY}
-      HERMES_PASSWORD: ${APP_PASSWORD}
+      HERMES_API_TOKEN: ${APP_API_SERVER_KEY:-defaultkey}
+      HERMES_PASSWORD: ${APP_PASSWORD:-umbrel}
     volumes:
       - ${APP_DATA_DIR}/agent-data:/home/workspace/.hermes
       - ${APP_DATA_DIR}/files:/workspace
