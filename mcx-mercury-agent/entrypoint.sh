@@ -6,18 +6,25 @@ mkdir -p "$MERCURY_HOME"
 
 CONFIG="$MERCURY_HOME/mercury.yaml"
 
-# Headless first-run: a config file with a non-empty identity.owner marks
-# setup complete and skips the interactive wizard (isSetupComplete() in
-# mercury's config.ts checks exactly this).
-if [ ! -s "$CONFIG" ]; then
-  cat > "$CONFIG" <<EOF
+# Config: write provider config directly (env is the source of truth).
+# A stored config with identity.owner set skips the interactive wizard
+# (isSetupComplete() checks exactly this), and openaiCompat registers only
+# when baseUrl+model are non-empty (registry.ts + isProviderConfigured()).
+cat > "$CONFIG" <<EOF
 identity:
-  name: Mercury
+  name: ${MERCURY_NAME:-Mercury}
   owner: ${MERCURY_OWNER:-umbrel}
 web:
   port: 6174
+providers:
+  default: ${DEFAULT_PROVIDER:-openaiCompat}
+  openaiCompat:
+    name: openaiCompat
+    apiKey: ${OPENAI_COMPAT_API_KEY:-}
+    baseUrl: ${OPENAI_COMPAT_BASE_URL:-https://openrouter.ai/api/v1}
+    model: ${OPENAI_COMPAT_MODEL:-openai/gpt-4o-mini}
+    enabled: true
 EOF
-fi
 
 # OpenRouter defaults: openaiCompat needs baseUrl+model to register.
 if [ -n "${OPENAI_COMPAT_API_KEY:-}" ]; then
@@ -41,7 +48,7 @@ done
 # stdout/stderr (and any crash reason) flow to container logs.
 (
   while true; do
-    echo "=== starting mercury runtime ==="
+    echo "=== entrypoint v8: starting mercury runtime ==="
     mercury start -f -v || echo "=== mercury runtime exited (code $?) ==="
     sleep 5
   done
