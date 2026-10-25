@@ -1,0 +1,32 @@
+manifestVersion: 1
+id: mcx-duck-ui
+name: Duck-UI
+tagline: Open-source DuckDB workbench in your browser
+icon: https://raw.githubusercontent.com/caioricciuti/duck-ui/main/public/logo.png
+category: developer
+version: "2.5.1"
+port: 5522
+description: >-
+  The fully open-source DuckDB workbench that runs in your browser.
+
+  No install, no signup, no backend — your data never leaves the tab.
+
+  SQL editor with completion and formatting, virtualized results grid with
+  exports to CSV, JSON, XLSX and Parquet, notebooks, dashboards, saved
+  queries, connections and DuckDB extension management.
+developer: caioricciuti
+website: https://duckui.com
+submitter: MCX
+submission: https://github.com/caioricciuti/duck-ui
+repo: https://github.com/caioricciuti/duck-ui
+support: https://github.com/caioricciuti/duck-ui/issues
+gallery:
+  - https://raw.githubusercontent.com/caioricciuti/duck-ui/main/public/screenshot.png
+  - https://raw.githubusercontent.com/caioricciuti/duck-ui/main/public/screenshot.png
+  - https://raw.githubusercontent.com/caioricciuti/duck-ui/main/public/screenshot.png
+releaseNotes: >-
+  Initial Umbrel release of Duck-UI 2.5.1.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
