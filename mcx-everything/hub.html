@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Everything</title>
+<style>
+  :root { color-scheme: dark light; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 24px; max-width: 1200px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .sub { opacity: .65; margin-bottom: 28px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  a.card { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid #8884; border-radius: 12px; text-decoration: none; color: inherit; }
+  a.card:hover { border-color: #888; background: #8881; }
+  a.card img { width: 32px; height: 32px; border-radius: 8px; }
+  a.card span { font-size: .95rem; }
+  footer { margin-top: 32px; opacity: .6; font-size: .85rem; }
+</style>
+</head>
+<body>
+<h1>Everything</h1>
+<div class="sub">50 open-source web apps (Office → Chess → CAD), rebuilt by the Everything Project. Pick an app:</div>
+<div class="grid" id="grid">Loading…</div>
+<footer>Served locally by your umbrelOS · source: github.com/HeyPuter/everything (MIT/AGPL per app)</footer>
+<script>
+const APPS = __APPS__;
+const g = document.getElementById('grid');
+g.innerHTML = APPS.map(([slug, name]) =>
+  `<a class="card" href="apps/${slug}/"><img src="apps/${slug}/.icon.png" onerror="this.style.visibility='hidden'"><span>${name}</span></a>`
+).join('');
+</script>
+</body>
+</html>

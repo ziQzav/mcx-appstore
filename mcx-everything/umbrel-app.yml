@@ -1,0 +1,43 @@
+manifestVersion: 1
+id: mcx-everything
+name: Everything
+tagline: 50 open-source web apps — Office, studios, games, business
+icon: https://raw.githubusercontent.com/HeyPuter/everything/main/assets/everything.png
+category: productivity
+version: "1.0.0"
+port: 80
+description: >-
+  The Everything Project (github.com/HeyPuter/everything) rebuilds the world's
+  software from scratch: Spreadsheet (Excel), Documents (Word), Presentation
+  (PowerPoint), Whiteboard (Miro), PDF, Notes, Email, Calendar, Contacts,
+  Meetings, Photo/Video/Vector/Audio/Music/3D Studios, CAD, Circuits, Chess,
+  Backgammon, Checkers, Sudoku, Solitaire, CRM, Accounting, Invoicing and more —
+  50 apps in one container.
+
+
+  After install, open the app to see a hub page with every application.
+
+
+  All apps run fully in your browser; nothing leaves your umbrelOS.
+
+
+  Note: the apps have no server-side authentication. Keep your umbrelOS login
+  requirement on for the app proxy (it is on by default), and do not expose the
+  app port publicly.
+developer: HeyPuter
+website: https://github.com/HeyPuter/everything
+submitter: MCX
+submission: https://github.com/HeyPuter/everything
+repo: https://github.com/HeyPuter/everything
+support: https://github.com/HeyPuter/everything/issues
+gallery:
+  - https://raw.githubusercontent.com/HeyPuter/everything/main/assets/hero/variants/34-app-wall-intact.png
+  - https://raw.githubusercontent.com/HeyPuter/everything/main/assets/hero/screenshots/keynote-slide-07-mail.png
+  - https://raw.githubusercontent.com/HeyPuter/everything/main/assets/hero/screenshots/keynote-slide-07-calendar.png
+releaseNotes: >-
+  Initial Umbrel release: all 50 apps from HeyPuter/everything at a pinned
+  upstream commit, served from one container with a hub page.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
