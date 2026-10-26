@@ -4,7 +4,7 @@ name: OpenBot
 tagline: Self-hosted AI assistant your company owns
 icon: https://avatars.githubusercontent.com/u/119687946?s=200&v=4
 category: ai
-version: "0.2.0"
+version: "0.2.0-2"
 port: 3001
 description: >-
   The AI assistant your company can actually own — same shape as ChatGPT or

@@ -9,7 +9,6 @@ services:
 
   web:
     image: ghcr.io/copilotkit/openbot:latest@sha256:b896cbbfbd354cbd5593b4baec9a9215d5ca5a50d071d59de2cc4e1efe482fd9
-    init: true
     restart: on-failure
     environment:
       # Embedded PostgreSQL (loopback inside the container, never published)
