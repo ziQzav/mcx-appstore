@@ -1,0 +1,41 @@
+manifestVersion: 1
+id: mcx-libredb-studio
+name: LibreDB Studio
+tagline: AI-powered web SQL IDE for many databases
+icon: https://raw.githubusercontent.com/libredb/libredb-studio/main/deploy/caprover/libredb-studio.png
+category: developer
+version: "1.1.0"
+port: 24678
+description: >-
+  The modern, open-source, web-based SQL IDE — listed by the PostgreSQL
+  project itself.
+
+  Query PostgreSQL, MySQL, SQLite, libSQL, DuckDB, Oracle, Db2, SQL Server,
+  MongoDB, Redis, Couchbase, Firestore, ClickHouse and more from the
+  browser, with an optional AI agent (set an LLM_API_KEY in the app's
+  Environment to enable it).
+
+
+  Login: no password by default — the first start generates one and prints
+  it in the app logs. To choose your own, add ADMIN_PASSWORD (and
+  JWT_SECRET, at least 32 characters) in the app's Environment.
+
+
+  Databases in other Umbrel apps: use umbrel.local or the app's IP as the
+  Host (container names are not cross-app reachable).
+developer: LibreDB
+website: https://libredb.com
+submitter: MCX
+submission: https://github.com/libredb/libredb-studio
+repo: https://github.com/libredb/libredb-studio
+support: https://github.com/libredb/libredb-studio/issues
+gallery:
+  - https://raw.githubusercontent.com/libredb/libredb-studio/main/public/screenshots/hero-editor.png
+  - https://raw.githubusercontent.com/libredb/libredb-studio/main/public/screenshots/hero-editor.png
+  - https://raw.githubusercontent.com/libredb/libredb-studio/main/public/logo.svg
+releaseNotes: >-
+  Initial Umbrel release of LibreDB Studio 1.1.0.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

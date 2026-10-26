@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # Format: <app-id>_<docker-service-name>_1
+      APP_HOST: mcx-libredb-studio_app_1
+      APP_PORT: 24678
+
+  app:
+    image: libredb/libredb-studio:1.1.0@sha256:e91183def05f4c13703c77363ec51ad68bfa45b1b1d3b92dc53c331b67e53d2c
+    restart: on-failure
+    environment:
+      # Override via the app's Environment if you want a fixed password:
+      # ADMIN_PASSWORD=<your password>, JWT_SECRET=<at least 32 chars>
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
+      - JWT_SECRET=${JWT_SECRET:-mcx-libredb-studio-default-jwt-secret-0123456789abcdef}
+      - PORT=24678
+      - LLM_PROVIDER=${LLM_PROVIDER:-}
+      - LLM_API_KEY=${LLM_API_KEY:-}
+      - LLM_MODEL=${LLM_MODEL:-}
+      - STORAGE_PROVIDER=local
+      - STORAGE_SQLITE_PATH=/app/data/libredb-storage.db
+      - WORKFLOW_LOCAL_DATA_DIR=/app/data/workflow
+    volumes:
+      - ${APP_DATA_DIR}/data:/app/data
