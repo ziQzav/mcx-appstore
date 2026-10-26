@@ -1,0 +1,43 @@
+manifestVersion: 1
+id: mcx-openbot
+name: OpenBot
+tagline: Self-hosted AI assistant your company owns
+icon: https://avatars.githubusercontent.com/u/119687946?s=200&v=4
+category: ai
+version: "0.2.0"
+port: 3001
+description: >-
+  The AI assistant your company can actually own — same shape as ChatGPT or
+  Claude, but running on your infrastructure and fully changeable.
+
+
+  Every coworker (Bot) gets a real browser of its own with its own logins
+  and files, actions are decided before they happen and recorded after.
+  Bring any AG-UI agent stack.
+
+
+  Status: alpha — expect rough edges. Single-user mode is on by default
+  (OPENBOT_SINGLE_USER=true): every request is admitted as one
+  administrator. Before sharing with others, set up sign-in.
+
+
+  To give a Bot a model, add OPENAI_API_KEY (or your provider's key) in
+  the app's Environment. A CopilotKit Intelligence key enables the
+  realtime voice features.
+developer: CopilotKit
+website: https://copilotkit.ai/openbot
+submitter: MCX
+submission: https://github.com/CopilotKit/openbot
+repo: https://github.com/CopilotKit/openbot
+support: https://github.com/CopilotKit/openbot/issues
+gallery:
+  - https://raw.githubusercontent.com/CopilotKit/openbot/main/assets/logo.png
+  - https://avatars.githubusercontent.com/u/119687946?s=400&v=4
+  - https://avatars.githubusercontent.com/u/119687946?s=400&v=4
+releaseNotes: >-
+  Initial Umbrel release of OpenBot v0.2.0 (single-container, embedded
+  PostgreSQL).
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

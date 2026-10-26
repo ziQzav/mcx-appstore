@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # Format: <app-id>_<docker-service-name>_1
+      APP_HOST: mcx-openbot_web_1
+      APP_PORT: 3001
+
+  web:
+    image: ghcr.io/copilotkit/openbot:latest@sha256:b896cbbfbd354cbd5593b4baec9a9215d5ca5a50d071d59de2cc4e1efe482fd9
+    init: true
+    restart: on-failure
+    environment:
+      # Embedded PostgreSQL (loopback inside the container, never published)
+      - EMBEDDED_POSTGRES=on
+      - PORT=3001
+      - OPENBOT_SINGLE_USER=true
+      # Rotate this in the app's Environment for a real deployment:
+      - KEY_ENCRYPTION_KEY=${KEY_ENCRYPTION_KEY:-iRW1ozWzs30gJP+3DqiWIc67rYpb7HyjvC1TdH8dH6A=}
+      - TRUSTED_ORIGINS=${TRUSTED_ORIGINS:-http://umbrel.local:3001,http://10.21.0.1:3001}
+      # Model keys (optional, add via app Environment):
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - INTELLIGENCE_API_KEY=${INTELLIGENCE_API_KEY:-}
+      - COPILOTKIT_LICENSE_TOKEN=${COPILOTKIT_LICENSE_TOKEN:-}
+    volumes:
+      # Parent dir, NOT the data dir (initdb refuses non-empty target)
+      - ${APP_DATA_DIR}/postgres:/var/lib/postgresql
