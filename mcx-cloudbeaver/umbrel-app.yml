@@ -1,0 +1,37 @@
+manifestVersion: 1
+id: mcx-cloudbeaver
+name: CloudBeaver
+tagline: Web-based database management by DBeaver
+icon: https://raw.githubusercontent.com/dbeaver/cloudbeaver/devel/webapp/packages/core-app/public/favicon.svg
+category: developer
+version: "26.2.3"
+port: 8978
+description: >-
+  CloudBeaver is the web-based database client from the DBeaver team.
+
+  Connect to PostgreSQL, MySQL/MariaDB, SQLite, SQL Server, Oracle and many
+  more from the browser: SQL editor, data editor with filters and
+  visualizations, ER diagrams, metadata browsing, export and import.
+
+
+  On first open the server runs an initialization wizard where you set the
+  admin credentials. Databases running in other Umbrel apps are reachable
+  from CloudBeaver via their Docker service names (e.g. postgres or
+  mariadb inside the app network are NOT cross-app reachable — use host
+  IPs or Tailscale for cross-app database access).
+developer: DBeaver Corp
+website: https://dbeaver.com/products/cloudbeaver/
+submitter: MCX
+submission: https://github.com/dbeaver/cloudbeaver
+repo: https://github.com/dbeaver/cloudbeaver
+support: https://github.com/dbeaver/cloudbeaver/issues
+gallery:
+  - https://raw.githubusercontent.com/dbeaver/cloudbeaver/devel/webapp/packages/core-app/public/apple-touch-icon.png
+  - https://raw.githubusercontent.com/dbeaver/cloudbeaver/devel/webapp/packages/core-app/public/favicon.png
+  - https://raw.githubusercontent.com/dbeaver/cloudbeaver/devel/webapp/packages/core-app/public/favicon.svg
+releaseNotes: >-
+  Initial Umbrel release of CloudBeaver 26.2.3.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

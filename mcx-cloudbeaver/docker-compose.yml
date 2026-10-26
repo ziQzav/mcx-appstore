@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # Format: <app-id>_<docker-service-name>_1
+      APP_HOST: mcx-cloudbeaver_web_1
+      APP_PORT: 8978
+
+  web:
+    image: dbeaver/cloudbeaver:26.2.3@sha256:0c875296f85ffd7c0ffaaaeff678cd2f383890050297585318d7cf8f49024d1f
+    init: true
+    restart: on-failure
+    volumes:
+      - ${APP_DATA_DIR}/workspace:/opt/cloudbeaver/workspace
