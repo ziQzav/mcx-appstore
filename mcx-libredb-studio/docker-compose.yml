@@ -16,6 +16,7 @@ services:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
       - JWT_SECRET=${JWT_SECRET:-mcx-libredb-studio-default-jwt-secret-0123456789abcdef}
       - PORT=24678
+      - AUTH_COOKIE_SECURE=false
       - LLM_PROVIDER=${LLM_PROVIDER:-}
       - LLM_API_KEY=${LLM_API_KEY:-}
       - LLM_MODEL=${LLM_MODEL:-}
