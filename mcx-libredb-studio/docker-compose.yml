@@ -17,6 +17,12 @@ services:
       - JWT_SECRET=${JWT_SECRET:-mcx-libredb-studio-default-jwt-secret-0123456789abcdef}
       - PORT=24678
       - AUTH_COOKIE_SECURE=false
+      # MCP: AI clients (Hermes) run read-only SQL over /api/mcp with a token
+      - LIBREDB_MCP_ENABLED=true
+      - LIBREDB_MCP_URL=http://10.21.0.1:24678/api/mcp
+      - LIBREDB_MCP_TOKEN_LABEL=mcx-umbrel
+      # Operator-managed connections live here (create via umbrelOS Files)
+      - SEED_CONFIG_PATH=/app/data/seed-connections.yaml
       - LLM_PROVIDER=${LLM_PROVIDER:-}
       - LLM_API_KEY=${LLM_API_KEY:-}
       - LLM_MODEL=${LLM_MODEL:-}

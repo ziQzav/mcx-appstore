@@ -4,7 +4,7 @@ name: LibreDB Studio
 tagline: AI-powered web SQL IDE for many databases
 icon: https://raw.githubusercontent.com/libredb/libredb-studio/main/deploy/caprover/libredb-studio.png
 category: developer
-version: "1.1.0-2"
+version: "1.1.0-3"
 port: 24678
 description: >-
   The modern, open-source, web-based SQL IDE — listed by the PostgreSQL
