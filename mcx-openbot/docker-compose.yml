@@ -57,10 +57,12 @@ services:
       perms:
         condition: service_completed_successfully
     security_opt:
-      # Upstream ships docker/seccomp.json so Electron's sandbox can create user
-      # namespaces. Umbrel copies only compose+manifest into app-data, so that
-      # file cannot ride along; unconfined is the working equivalent here.
+      # The Electron sandbox creates user namespaces. Docker's default seccomp
+      # profile refuses the clone flags and its default AppArmor profile denies
+      # `userns,` outright, so both have to be lifted; neither can be restored
+      # from a file because Umbrel copies only compose+manifest into app-data.
       - seccomp=unconfined
+      - apparmor=unconfined
       - no-new-privileges:true
     # Chromium needs more shared memory than Docker's 64 MB default.
     shm_size: 1g
