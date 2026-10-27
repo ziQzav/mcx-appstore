@@ -38,9 +38,24 @@ services:
         EOF
         exec httpd -f -p 3001 -h /www
 
+  # One-shot: hand /data to uid/gid 1000, which is what the image runs as.
+  perms:
+    image: busybox:1.36
+    restart: "no"
+    user: "0:0"
+    command: ["sh", "-c", "chown -R 1000:1000 /data && chmod 700 /data"]
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+
   web:
     image: ghcr.io/nightly-labs/openbot:0.51.1
     restart: unless-stopped
+    # The image runs as uid 1000 and refuses to start when /data is owned by
+    # anyone else; Umbrel creates the app-data folder under its own uid, so the
+    # perms service hands it over first.
+    depends_on:
+      perms:
+        condition: service_completed_successfully
     security_opt:
       # Upstream ships docker/seccomp.json so Electron's sandbox can create user
       # namespaces. Umbrel copies only compose+manifest into app-data, so that
