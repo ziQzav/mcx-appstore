@@ -35,8 +35,8 @@ description: >-
 
 
   Note: upstream ships a seccomp profile, but Umbrel copies only the compose and
-  manifest into app-data, so this build runs with seccomp=unconfined plus
-  no-new-privileges.
+  manifest into app-data, so this build runs with seccomp=unconfined,
+  apparmor=unconfined and no-new-privileges.
 
 
   License: PolyForm Noncommercial 1.0.0.
