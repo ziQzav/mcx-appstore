@@ -48,7 +48,7 @@ services:
       - ${APP_DATA_DIR}/data:/data
 
   web:
-    image: ghcr.io/nightly-labs/openbot:0.51.1
+    image: ghcr.io/nightly-labs/openbot:0.52.0
     restart: unless-stopped
     # The image runs as uid 1000 and refuses to start when /data is owned by
     # anyone else; Umbrel creates the app-data folder under its own uid, so the

@@ -4,7 +4,7 @@ name: OpenBot
 tagline: Local-first AI teammate workspace — headless server
 icon: https://avatars.githubusercontent.com/u/100160810?s=200&v=4
 category: ai
-version: "0.51.1-3"
+version: "0.52.0"
 port: 3001
 description: >-
   OpenBot by nightly-labs: a local-first workspace for persistent AI teammates.
@@ -50,11 +50,10 @@ gallery:
   - https://avatars.githubusercontent.com/u/100160810?s=400&v=4
   - https://avatars.githubusercontent.com/u/100160810?s=400&v=4
 releaseNotes: >-
-  0.51.1-3: lift AppArmor as well as seccomp. With only seccomp=unconfined the
-  server still stopped with "OpenBot cannot make a user namespace for the
-  Electron sandbox", because Docker's default AppArmor profile denies `userns,`
-  outright. 0.51.1-2 fixed the earlier "User 1000 cannot write to /data" by
-  chowning the app-data folder to uid 1000 before the server starts.
+  0.52.0: track upstream v0.52.0. Upstream's container requirements are
+  unchanged, so this is the image bump plus the version string. Earlier fixes
+  kept: a one-shot perms service chowns /data to uid 1000, and the container
+  runs with seccomp=unconfined, apparmor=unconfined and no-new-privileges.
 dependencies: []
 path: ""
 defaultUsername: ""
