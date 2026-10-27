@@ -1,27 +1,62 @@
 version: "3.7"
 
 services:
+  # The "Open" button lands here: nightly-labs/openbot publishes no port, so a
+  # tiny page explains where to go instead of showing a proxy error.
   app_proxy:
     environment:
-      # Format: <app-id>_<docker-service-name>_1
-      APP_HOST: mcx-openbot_web_1
+      APP_HOST: mcx-openbot_info_1
       APP_PORT: 3001
 
+  info:
+    image: busybox:1.36
+    restart: unless-stopped
+    command:
+      - sh
+      - -c
+      - |
+        mkdir -p /www
+        cat > /www/index.html <<'EOF'
+        <!doctype html>
+        <html lang="en"><head><meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>OpenBot server</title>
+        <style>
+          body{font:16px/1.6 system-ui,sans-serif;max-width:34rem;margin:12vh auto;padding:0 1.25rem;color:#111}
+          code{background:#f3f4f6;padding:.15em .4em;border-radius:4px;font-size:.92em}
+          @media (prefers-color-scheme:dark){body{background:#111;color:#eee}code{background:#222}}
+        </style></head><body>
+        <h1>OpenBot is running</h1>
+        <p>This container is a <strong>headless server</strong>. It has no web UI of
+        its own: it only connects out.</p>
+        <p>Use it from the desktop app, the iPhone app, or
+        <a href="https://openbot.run/app">openbot.run/app</a> after signing this
+        server in to your account.</p>
+        <p>First run: open the app's terminal and run <code>openbot login</code>,
+        then enter your email and the one-time code.</p>
+        </body></html>
+        EOF
+        exec httpd -f -p 3001 -h /www
+
   web:
-    image: ghcr.io/copilotkit/openbot:latest@sha256:b896cbbfbd354cbd5593b4baec9a9215d5ca5a50d071d59de2cc4e1efe482fd9
-    restart: on-failure
-    environment:
-      # Embedded PostgreSQL (loopback inside the container, never published)
-      - EMBEDDED_POSTGRES=on
-      - PORT=3001
-      - OPENBOT_SINGLE_USER=true
-      # Rotate this in the app's Environment for a real deployment:
-      - KEY_ENCRYPTION_KEY=${KEY_ENCRYPTION_KEY:-iRW1ozWzs30gJP+3DqiWIc67rYpb7HyjvC1TdH8dH6A=}
-      - TRUSTED_ORIGINS=${TRUSTED_ORIGINS:-http://umbrel.local:3001,http://10.21.0.1:3001}
-      # Model keys (optional, add via app Environment):
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
-      - INTELLIGENCE_API_KEY=${INTELLIGENCE_API_KEY:-}
-      - COPILOTKIT_LICENSE_TOKEN=${COPILOTKIT_LICENSE_TOKEN:-}
+    image: ghcr.io/nightly-labs/openbot:0.51.1
+    restart: unless-stopped
+    security_opt:
+      # Upstream ships docker/seccomp.json so Electron's sandbox can create user
+      # namespaces. Umbrel copies only compose+manifest into app-data, so that
+      # file cannot ride along; unconfined is the working equivalent here.
+      - seccomp=unconfined
+      - no-new-privileges:true
+    # Chromium needs more shared memory than Docker's 64 MB default.
+    shm_size: 1g
+    # OpenBot stops its agents and closes its database before exiting.
+    stop_grace_period: 60s
     volumes:
-      # Parent dir, NOT the data dir (initdb refuses non-empty target)
-      - ${APP_DATA_DIR}/postgres:/var/lib/postgresql
+      # /data is the home of uid/gid 1000: db, logs, agent workspaces, browser data.
+      - ${APP_DATA_DIR}/data:/data
+    environment:
+      # Optional provider credentials; fill what you use in the app's Environment.
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - XAI_API_KEY=${XAI_API_KEY:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
