@@ -4,7 +4,7 @@ name: Everything
 tagline: 50 open-source web apps — Office, studios, games, business
 icon: https://raw.githubusercontent.com/HeyPuter/everything/main/assets/everything.png
 category: productivity
-version: "1.0.1"
+version: "1.0.0"
 port: 8080
 description: >-
   The Everything Project (github.com/HeyPuter/everything) rebuilds the world's
