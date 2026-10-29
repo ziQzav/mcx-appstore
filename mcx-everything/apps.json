@@ -1,0 +1,264 @@
+{
+  "_comment": "Kurasyon listesi: hub sayfasinda hangi uygulama nasil gosterilir. status: ok = dogrudan calisir, account = Puter hesabi/sign-in ister, demo = sadece ornek veriyle gezilebilir, broken = acilmiyor (hub'da gosterilmez, imaja da kopyalanmaz). Dogrulama: 29.10.2026, headless Chromium ile canli konteyner (v1.0.0) DOM/screenshot kontrolu.",
+  "apps": [
+    {
+      "slug": "api-client",
+      "name": "API Client",
+      "status": "ok"
+    },
+    {
+      "slug": "audio-studio",
+      "name": "Audio Studio",
+      "status": "ok"
+    },
+    {
+      "slug": "backgammon",
+      "name": "Backgammon",
+      "status": "ok"
+    },
+    {
+      "slug": "building-design",
+      "name": "Building Design",
+      "status": "ok"
+    },
+    {
+      "slug": "cad",
+      "name": "CAD",
+      "status": "ok"
+    },
+    {
+      "slug": "checkers",
+      "name": "Checkers",
+      "status": "ok"
+    },
+    {
+      "slug": "chess",
+      "name": "Chess",
+      "status": "ok"
+    },
+    {
+      "slug": "circuits",
+      "name": "Circuits",
+      "status": "ok"
+    },
+    {
+      "slug": "documents",
+      "name": "Documents",
+      "status": "ok",
+      "note": "Kaydetme icin Puter hesabi gerekir; duzenleme tarayicida calisir."
+    },
+    {
+      "slug": "music-studio",
+      "name": "Music Studio",
+      "status": "ok"
+    },
+    {
+      "slug": "parametric",
+      "name": "Parametric",
+      "status": "ok"
+    },
+    {
+      "slug": "pdf",
+      "name": "PDF Editor",
+      "status": "ok"
+    },
+    {
+      "slug": "presentation",
+      "name": "Presentation",
+      "status": "ok",
+      "note": "Kaydetme icin Puter hesabi gerekir."
+    },
+    {
+      "slug": "solitaire",
+      "name": "Solitaire",
+      "status": "ok"
+    },
+    {
+      "slug": "spreadsheet",
+      "name": "Spreadsheet",
+      "status": "ok",
+      "note": "Kaydetme icin Puter hesabi gerekir."
+    },
+    {
+      "slug": "sudoku",
+      "name": "Sudoku",
+      "status": "ok"
+    },
+    {
+      "slug": "vector-studio",
+      "name": "Vector Studio",
+      "status": "ok"
+    },
+    {
+      "slug": "video-studio",
+      "name": "Video Studio",
+      "status": "ok",
+      "note": "Kaydetme icin Puter hesabi gerekir."
+    },
+    {
+      "slug": "accounting",
+      "name": "Accounting",
+      "status": "account"
+    },
+    {
+      "slug": "calendar",
+      "name": "Calendar",
+      "status": "account"
+    },
+    {
+      "slug": "cap-table",
+      "name": "Cap Table",
+      "status": "account"
+    },
+    {
+      "slug": "contracts",
+      "name": "Contracts",
+      "status": "account"
+    },
+    {
+      "slug": "crm",
+      "name": "CRM",
+      "status": "account"
+    },
+    {
+      "slug": "email",
+      "name": "Mail",
+      "status": "account"
+    },
+    {
+      "slug": "expense",
+      "name": "Expenses",
+      "status": "account"
+    },
+    {
+      "slug": "help-desk",
+      "name": "Help Desk",
+      "status": "account"
+    },
+    {
+      "slug": "hiring",
+      "name": "Hiring",
+      "status": "account"
+    },
+    {
+      "slug": "inventory",
+      "name": "Inventory",
+      "status": "account"
+    },
+    {
+      "slug": "invoicing",
+      "name": "Invoicing",
+      "status": "account"
+    },
+    {
+      "slug": "notes",
+      "name": "Notes",
+      "status": "account"
+    },
+    {
+      "slug": "pos",
+      "name": "Point of Sale",
+      "status": "account"
+    },
+    {
+      "slug": "projects",
+      "name": "Projects",
+      "status": "account"
+    },
+    {
+      "slug": "records",
+      "name": "Records",
+      "status": "account"
+    },
+    {
+      "slug": "shifts",
+      "name": "Shifts",
+      "status": "account"
+    },
+    {
+      "slug": "signatures",
+      "name": "Signatures",
+      "status": "account"
+    },
+    {
+      "slug": "survey",
+      "name": "Surveys",
+      "status": "account"
+    },
+    {
+      "slug": "tasks",
+      "name": "Tasks",
+      "status": "account"
+    },
+    {
+      "slug": "teamchat",
+      "name": "Teamchat",
+      "status": "account"
+    },
+    {
+      "slug": "time-tracking",
+      "name": "Time Tracking",
+      "status": "account"
+    },
+    {
+      "slug": "wiki",
+      "name": "Wiki",
+      "status": "account"
+    },
+    {
+      "slug": "childcare",
+      "name": "Childcare",
+      "status": "demo"
+    },
+    {
+      "slug": "field-service",
+      "name": "Field Service",
+      "status": "demo"
+    },
+    {
+      "slug": "fleet",
+      "name": "Fleet",
+      "status": "demo"
+    },
+    {
+      "slug": "legal",
+      "name": "Legal",
+      "status": "demo"
+    },
+    {
+      "slug": "property-management",
+      "name": "Property Mgmt",
+      "status": "demo"
+    },
+    {
+      "slug": "3d",
+      "name": "3D Studio",
+      "status": "broken",
+      "note": "Bos sayfa (v1.0.0)."
+    },
+    {
+      "slug": "contacts",
+      "name": "Contacts",
+      "status": "broken",
+      "note": "Bos sayfa (v1.0.0)."
+    },
+    {
+      "slug": "meetings",
+      "name": "Meetings",
+      "status": "broken",
+      "note": "Bos sayfa (v1.0.0)."
+    },
+    {
+      "slug": "photo-studio",
+      "name": "Photo Studio",
+      "status": "broken",
+      "note": "Bos sayfa (v1.0.0)."
+    },
+    {
+      "slug": "whiteboard",
+      "name": "Whiteboard",
+      "status": "broken",
+      "note": "'Loading your boards' ekraninda kaliyor (v1.0.0)."
+    }
+  ]
+}
