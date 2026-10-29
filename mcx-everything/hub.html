@@ -8,26 +8,62 @@
   :root { color-scheme: dark light; }
   body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 24px; max-width: 1200px; }
   h1 { font-size: 1.6rem; margin: 0 0 4px; }
-  .sub { opacity: .65; margin-bottom: 28px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-  a.card { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1px solid #8884; border-radius: 12px; text-decoration: none; color: inherit; }
+  h2 { font-size: 1.05rem; margin: 30px 0 10px; display: flex; align-items: baseline; gap: 8px; }
+  h2 small { font-weight: 400; opacity: .6; font-size: .85rem; }
+  .sub { opacity: .65; margin-bottom: 8px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+  a.card { display: flex; align-items: center; gap: 10px; padding: 11px 13px; border: 1px solid #8884; border-radius: 12px; text-decoration: none; color: inherit; }
   a.card:hover { border-color: #888; background: #8881; }
-  a.card img { width: 32px; height: 32px; border-radius: 8px; }
-  a.card span { font-size: .95rem; }
-  footer { margin-top: 32px; opacity: .6; font-size: .85rem; }
+  a.card img { width: 30px; height: 30px; border-radius: 8px; flex: none; }
+  a.card .t { font-size: .95rem; line-height: 1.2; }
+  a.card .n { font-size: .74rem; opacity: .6; margin-top: 2px; }
+  .muted a.card { opacity: .8; }
+  .badge { font-size: .68rem; padding: 1px 6px; border-radius: 999px; border: 1px solid currentColor; opacity: .75; margin-left: 6px; }
+  footer { margin-top: 34px; opacity: .6; font-size: .85rem; line-height: 1.5; }
 </style>
 </head>
 <body>
 <h1>Everything</h1>
 <div class="sub">50 open-source web apps (Office → Chess → CAD), rebuilt by the Everything Project. Pick an app:</div>
-<div class="grid" id="grid">Loading…</div>
-<footer>Served locally by your umbrelOS · source: github.com/HeyPuter/everything (MIT/AGPL per app)</footer>
+
+<h2>Ready to use <small id="c-ok"></small></h2>
+<div class="grid" id="ok"></div>
+
+<h2>Needs a Puter account <small id="c-account"></small></h2>
+<div class="sub" style="font-size:.85rem">These apps load a sign-in wall first: they need a free account at puter.com for storage/sync. They will not work offline on this box.</div>
+<div class="grid muted" id="account"></div>
+
+<h2>Demo only <small id="c-demo"></small></h2>
+<div class="sub" style="font-size:.85rem">Opens with sample data so you can look around; saving needs a Puter account.</div>
+<div class="grid muted" id="demo"></div>
+
+<footer>
+  Served locally by your umbrelOS · source: github.com/HeyPuter/everything (MIT/AGPL per app)<br>
+  Apps marked <em>broken</em> upstream are not shipped in this build.
+</footer>
+
 <script>
 const APPS = __APPS__;
-const g = document.getElementById('grid');
-g.innerHTML = APPS.map(([slug, name]) =>
-  `<a class="card" href="apps/${slug}/"><img src="apps/${slug}/.icon.png" onerror="this.style.visibility='hidden'"><span>${name}</span></a>`
-).join('');
+const groups = { ok: [], account: [], demo: [] };
+for (const a of APPS) if (groups[a.status]) groups[a.status].push(a);
+
+function card(a) {
+  const note = a.note ? `<div class="n">${a.note}</div>` : '';
+  const badge = a.status === 'account' ? '<span class="badge">account</span>'
+              : a.status === 'demo' ? '<span class="badge">demo</span>' : '';
+  return `<a class="card" href="apps/${a.slug}/">
+    <img src="apps/${a.slug}/.icon.png" loading="lazy" onerror="this.style.visibility='hidden'">
+    <span><span class="t">${a.name}${badge}</span>${note}</span>
+  </a>`;
+}
+
+for (const [key, list] of Object.entries(groups)) {
+  const host = document.getElementById(key);
+  if (!host) continue;
+  host.innerHTML = list.map(card).join('');
+  const counter = document.getElementById('c-' + key);
+  if (counter) counter.textContent = list.length + ' apps';
+}
 </script>
 </body>
 </html>
