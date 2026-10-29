@@ -1,21 +1,23 @@
 manifestVersion: 1
 id: mcx-everything
 name: Everything
-tagline: 50 open-source web apps — Office, studios, games, business
+tagline: 45 open-source web apps — Office, studios, games, business
 icon: https://raw.githubusercontent.com/HeyPuter/everything/main/assets/everything.png
 category: productivity
-version: "1.0.0"
+version: "1.1.0"
 port: 8080
 description: >-
   The Everything Project (github.com/HeyPuter/everything) rebuilds the world's
   software from scratch: Spreadsheet (Excel), Documents (Word), Presentation
-  (PowerPoint), Whiteboard (Miro), PDF, Notes, Email, Calendar, Contacts,
-  Meetings, Photo/Video/Vector/Audio/Music/3D Studios, CAD, Circuits, Chess,
-  Backgammon, Checkers, Sudoku, Solitaire, CRM, Accounting, Invoicing and more —
-  50 apps in one container.
+  (PowerPoint), PDF, Notes, Email, Calendar, CRM, Accounting, Invoicing, CAD,
+  Circuits, Chess, Backgammon, Checkers, Sudoku, Solitaire, Vector/Video/Audio/
+  Music Studios and more — 45 apps in one container; the 5 that do not load
+  upstream are not shipped.
 
 
-  After install, open the app to see a hub page with every application.
+  After install, open the app to see a hub page with every application. Apps
+  that need a free Puter account and those that only run with sample data are
+  labelled in the hub.
 
 
   All apps run fully in your browser; nothing leaves your umbrelOS.
@@ -35,8 +37,10 @@ gallery:
   - https://raw.githubusercontent.com/HeyPuter/everything/main/assets/hero/screenshots/keynote-slide-07-mail.png
   - https://raw.githubusercontent.com/HeyPuter/everything/main/assets/hero/screenshots/keynote-slide-07-calendar.png
 releaseNotes: >-
-  Initial Umbrel release: all 50 apps from HeyPuter/everything at a pinned
-  upstream commit, served from one container with a hub page.
+  Hub now marks apps that need a Puter account and those that only run with
+  sample data. The five apps that load a blank or stuck screen upstream (3D,
+  Contacts, Meetings, Photo Studio, Whiteboard) are no longer shipped.
+  Everything else unchanged.
 dependencies: []
 path: ""
 defaultUsername: ""
