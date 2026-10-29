@@ -1,6 +1,6 @@
 #!/bin/bash
 # Build every Puter "everything" app (src/<app>) into its own dist/,
-# then generate the hub page (index.html) listing every built app.
+# then generate the hub page (index.html) from the curated apps.json list.
 # Resilient: a failing app is logged and skipped, it must not kill the image.
 set -u
 SRC=/src
@@ -44,29 +44,33 @@ echo "built OK: $(echo "$ok" | grep -c .)"
 # Fail the image build only if almost nothing built (real environment problem).
 [ "$(echo "$ok" | wc -l)" -lt 25 ] && { echo "too many failures"; exit 1; }
 
-# ---- hub page: replace __APPS__ with [slug, display name] for every OK app ----
+# ---- hub page from apps.json ----
+# status: ok | account | demo  -> shown in its own section
+# status: broken               -> hidden from the hub and not shipped in the image
 node - "$SRC" <<'NODE'
 const fs = require('fs');
-const path = require('path');
-const SRC = process.argv[2];
 const ok = new Set(fs.readFileSync('/tmp/build-ok.txt', 'utf8').trim().split('\n').filter(Boolean));
-const entries = [];
-for (const app of [...ok].sort()) {
-  let name = app;
-  try {
-    const pkg = JSON.parse(fs.readFileSync(path.join(SRC, 'src', app, 'package.json'), 'utf8'));
-    if (pkg.description) {
-      // Use the first sentence, trimmed, as a tooltip title; keep slug as label.
-      name = app;
-    }
-  } catch {}
-  entries.push([app, name.charAt(0).toUpperCase() + name.slice(1)]);
-}
+const curated = JSON.parse(fs.readFileSync('/apps.json', 'utf8')).apps;
+const known = new Set(curated.map(a => a.slug));
+
+const entries = curated
+  .filter(a => a.status !== 'broken' && ok.has(a.slug))
+  .map(a => ({ slug: a.slug, name: a.name, status: a.status, ...(a.note ? { note: a.note } : {}) }));
+
+const skipped = curated.filter(a => a.status === 'broken' && ok.has(a.slug)).map(a => a.slug);
+fs.writeFileSync('/tmp/skip.txt', skipped.join('\n') + (skipped.length ? '\n' : ''));
+
+const unlisted = [...ok].filter(s => !known.has(s)).sort();
+if (unlisted.length) fs.writeFileSync('/tmp/unlisted.txt', unlisted.join('\n') + '\n');
+
 const html = fs.readFileSync('/tmp/hub-template.html', 'utf8');
-fs.writeFileSync(path.join(SRC, 'hub-index.html'),
-  html.replace('__APPS__', JSON.stringify(entries)));
-console.log('hub entries:', entries.length);
+fs.writeFileSync('/tmp/hub-final.html', html.replace('__APPS__', JSON.stringify(entries)));
+console.log('hub entries:', entries.length,
+  '| ok:', entries.filter(e => e.status === 'ok').length,
+  '| account:', entries.filter(e => e.status === 'account').length,
+  '| demo:', entries.filter(e => e.status === 'demo').length,
+  '| hidden broken:', skipped.join(',') || 'none',
+  '| unlisted (not in hub):', unlisted.join(',') || 'none');
 NODE
-cp "$SRC/hub-index.html" /tmp/hub-final.html
 echo "hub written"
 exit 0
