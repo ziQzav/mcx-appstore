@@ -8,6 +8,6 @@ services:
       APP_PORT: 80
 
   web:
-    image: ghcr.io/ziqzav/mcx-everything:v1.0.0@sha256:640fc8fc4233e8be10a19d19397d18247d252ec035a21321517c856d747c207c
+    image: ghcr.io/ziqzav/mcx-everything:v1.1.0@sha256:5ce81180cdaa430b92be8b00eb06a7fff813bb31965bb68870702a6dad16ccf1
     init: true
     restart: on-failure
