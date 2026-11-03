@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      # Format: <app-id>_<docker-service-name>_1
+      APP_HOST: mcx-homedock_web_1
+      APP_PORT: 80
+
+  web:
+    image: bansheetech/homedock-os:2.6.2.104@sha256:1bc18340e6e602648992c31647af08fe3280d5158ac4f88b872ca5de69da9c54
+    container_name: homedock-os
+    restart: unless-stopped
+    # HomeDock runs its apps as sibling containers on the host Docker engine.
+    # That is why the socket is mounted: without it the entrypoint exits (13).
+    volumes:
+      - ${APP_DATA_DIR}/data/DATA:/DATA
+      - ${APP_DATA_DIR}/data/config:/homedock/config
+      - ${APP_DATA_DIR}/data/compose:/homedock/compose-link
+      - ${APP_DATA_DIR}/data/packages:/homedock/_user_packages
+      - ${APP_DATA_DIR}/data/dropzone:/homedock/dropzone
+      - ${APP_DATA_DIR}/data/logs:/homedock/logs
+      - /var/run/docker.sock:/var/run/docker.sock
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    labels:
+      # How the entrypoint finds its own container through the Docker API.
+      - "HDDockerInDocker=true"
+    environment:
+      - TZ=${TZ:-Europe/Istanbul}
+      - PYTHONUNBUFFERED=1
