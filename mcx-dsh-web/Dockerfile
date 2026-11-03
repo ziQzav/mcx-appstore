@@ -31,7 +31,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         bash git curl ca-certificates \
         python3 python3-pip python3-venv \
-        build-essential jq ripgrep unzip zip ffmpeg less procps gosu \
+        build-essential jq ripgrep unzip zip ffmpeg less procps gosu socat \
     && rm -rf /var/lib/apt/lists/* \
     && corepack enable
 
