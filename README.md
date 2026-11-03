@@ -29,7 +29,7 @@ Compose dışındaki dosyalara (seccomp profili, ek config) güvenme.
 |---|---|---|---|
 | OpenBot | 0.52.0 | 3001 (bilgi sayfası) | `ghcr.io/nightly-labs/openbot:0.52.0` |
 | CloudBeaver | 26.2.3 | 8978 | `dbeaver/cloudbeaver:26.2.3` |
-| Everything | 1.0.0 | 8080 | `ghcr.io/ziqzav/mcx-everything:v1.0.0` |
+| Everything | 1.1.0 | 8080 | `ghcr.io/ziqzav/mcx-everything:v1.1.0` |
 | Ignis | 0.8.18 | 24675 | `nobbe/ignis:0.8.18` |
 | LibreDB Studio | 1.1.0-3 | 24678 | `libredb/libredb-studio:1.1.0` |
 | Duck-UI | 2.5.1-2 | 24677 | `ghcr.io/caioricciuti/duck-ui@sha256` + `caddy:2-alpine` |
@@ -79,3 +79,10 @@ Tüm imajlar `tag@sha256:...` biçiminde digest ile pinlidir.
 - Manifest sürümü = compose imaj etiketi = `releaseNotes` sürümü.
 - Kurulumdan sonra uygulama açılıyor, giriş akışı çalışıyor, veri `${APP_DATA_DIR}` altında kalıcı.
 - Güncelleme sonrası eski veri korunuyor.
+
+---
+
+## Lisans
+
+Bu store tanımı ve manifestler **MIT** lisanslıdır (bkz. `LICENSE`).
+Paketlenen uygulamaların kendi lisansları geçerlidir; imajlar upstream projelerine aittir.
