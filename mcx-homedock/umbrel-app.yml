@@ -2,7 +2,7 @@ manifestVersion: 1
 id: mcx-homedock
 name: HomeDock OS
 tagline: A self-hosted cloud desktop with an app store of 800+ services
-icon: https://www.homedock.cloud/favicon.png
+icon: https://raw.githubusercontent.com/BansheeTech/HomeDockOS/main/homedock-ui/static/favicon/android-icon-192x192.png
 category: productivity
 version: "2.6.2.104"
 port: 24680
