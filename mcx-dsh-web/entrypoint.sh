@@ -25,33 +25,7 @@ fi
 if [ -n "${DSH_HOST:-}" ]; then
   HOST=$DSH_HOST
 else
-  HOST=$(hostname -i 2>/dev/null | tr ' ' '\n' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+
-
-cat > /tmp/listen.patch.yml <<EOF
-- id: webserver
-  config:
-    host: $HOST
-    port: $LISTEN_PORT
-    compression: gzip
-    compressionLevel: 1
-    compressionThresholdBytes: 1024
-EOF
-
-set -- dsh --profile web --patch /tmp/listen.patch.yml --no-open "$@"
-
-if [ -n "${DSH_TRUSTED_HOST:-}" ]; then
-  old_ifs=$IFS
-  IFS=','
-  for trusted in $DSH_TRUSTED_HOST; do
-    [ -n "$trusted" ] && set -- "$@" --trusted-host "$trusted"
-  done
-  IFS=$old_ifs
-fi
-
-export HOME=/home/node
-cd /workspace
-exec gosu node "$@"
- | head -n 1 || true)
+  HOST=$(hostname -i 2>/dev/null | tr ' ' '\n' | grep -E '^[0-9]+(\.[0-9]+){3}$' | head -n 1 || true)
 fi
 if [ -z "$HOST" ] || [ "$HOST" = "0.0.0.0" ]; then
   echo "entrypoint: could not determine a concrete container IP; set DSH_HOST" >&2
