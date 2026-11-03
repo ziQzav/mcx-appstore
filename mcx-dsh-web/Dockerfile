@@ -10,8 +10,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # pnpm is required by "dsh plugin"; the dsh install needs its own build scripts allowed.
-RUN corepack enable \
-    && npm install -g pnpm@10 --no-fund --no-audit \
+# No corepack here: its pnpm shim collides with the npm-installed pnpm.
+RUN npm install -g pnpm@10 --no-fund --no-audit \
     && npm install -g "@deepseek-ai/dsh@${DSH_VERSION}" --no-fund --no-audit \
         --allow-scripts=@deepseek-ai/dsh-subprocess-local,node-pty,koffi,@google/genai,protobufjs
 
