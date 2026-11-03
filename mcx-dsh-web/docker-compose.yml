@@ -1,0 +1,48 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-dsh-web_web_1
+      APP_PORT: 3080
+
+  web:
+    image: ghcr.io/ziqzav/mcx-dsh-web:v0.4.14
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 30s
+    # Mirrors the entrypoint output to /data/dsh-startup.log and copies the
+    # one-time login token to /data/login-token.txt (Files -> Apps -> DSH Web).
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -u
+        log=/data/dsh-startup.log
+        : > "$log"
+        chmod 644 "$log"
+        /usr/local/bin/dsh-web-entrypoint.sh > >(tee -a "$log") 2>&1 &
+        child=$!
+        trap 'kill -TERM "$child" 2>/dev/null' TERM INT
+        for _ in $(seq 1 180); do
+          token=$(sed -n 's/.*[?&]token=\([A-Za-z0-9._~-]*\).*/\1/p' "$log" | head -n 1)
+          if [ -n "${token:-}" ]; then
+            printf '%s\n' "$token" > /data/login-token.txt
+            chmod 644 /data/login-token.txt
+            break
+          fi
+          sleep 1
+        done
+        wait "$child"
+    environment:
+      # Optional: set a DeepSeek key here or add providers in the web UI.
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+      - DSH_TRUSTED_HOST=${DSH_TRUSTED_HOST:-umbrel.local,localhost,127.0.0.1,192.168.68.64,100.68.199.76}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - DSH_HOST=0.0.0.0
+      - DSH_LISTEN_PORT=3080
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+      - ${APP_DATA_DIR}/workspace:/workspace
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
