@@ -25,7 +25,7 @@ fi
 if [ -n "${DSH_HOST:-}" ]; then
   HOST=$DSH_HOST
 else
-  HOST=$(hostname -i 2>/dev/null | tr ' ' '\n' | grep -E '^[0-9]+(\.[0-9]+){3}$' | head -n 1 || true)
+  HOST=$(hostname -i 2>/dev/null | awk '{print $1}')
 fi
 if [ -z "$HOST" ] || [ "$HOST" = "0.0.0.0" ]; then
   echo "entrypoint: could not determine a concrete container IP; set DSH_HOST" >&2
