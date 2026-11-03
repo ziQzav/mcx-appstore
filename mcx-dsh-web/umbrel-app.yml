@@ -4,7 +4,7 @@ name: DSH Web
 tagline: DeepSeek Harness web GUI with the dsh-web plugin pack
 icon: https://raw.githubusercontent.com/zhu1090093659/dsh-web/main/market/dist/tryon/shell/favicon.svg
 category: ai
-version: "0.4.14"
+version: "0.4.14-2"
 port: 24681
 description: >-
   DeepSeek Harness (dsh) served as a web app, with the dsh-web plugin pack
@@ -43,10 +43,10 @@ gallery:
   - https://raw.githubusercontent.com/zhu1090093659/dsh-web/main/docs/screenshots/09-task-board.png
   - https://raw.githubusercontent.com/zhu1090093659/dsh-web/main/docs/screenshots/04-git-graph.png
 releaseNotes: >-
-  Initial Umbrel release. Built here: node:24 image with DeepSeek Harness
-  0.2.1-rc.5 and @linxin666/dsh-web-all 0.4.14 preinstalled on the web profile
-  (the three native builds the plugin needs are allowed before install). The
-  one-time login token is copied to data/login-token.txt on every start.
+  0.4.14-2: dsh web now binds loopback and socat publishes port 3080, because
+  dsh 0.2.1 rejects wildcard hosts and a single-interface bind could miss the
+  interface the app proxy uses. Same DSH 0.2.1-rc.5 and dsh-web 0.4.14.
+  Previous 0.4.14 build is superseded.
 dependencies: []
 path: ""
 defaultUsername: ""
