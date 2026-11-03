@@ -1,0 +1,51 @@
+manifestVersion: 1
+id: mcx-homedock
+name: HomeDock OS
+tagline: A self-hosted cloud desktop with an app store of 800+ services
+icon: https://www.homedock.cloud/favicon.png
+category: productivity
+version: "2.6.2.104"
+port: 24680
+description: >-
+  HomeDock OS is a desktop in the browser: a start menu, windows, files and an
+  app store of 800+ self-hosted services, all driven by the Docker engine it
+  runs on. This package runs the upstream image on the Umbrel and exposes it
+  through the Umbrel app proxy.
+
+
+  WARNING - the container mounts the host Docker socket
+  (/var/run/docker.sock) because HomeDock creates and controls containers.
+  That gives the app the same power as root on the Umbrel: it can start, stop,
+  change or delete ANY container on the host, including umbrelOS and every
+  other app. Keep "Require Umbrel login" enabled for this app and never expose
+  its port to the internet. Apps you install inside HomeDock run as ordinary
+  host containers: they do not appear in umbrelOS Apps, their ports can clash
+  with umbrelOS apps, and umbrelOS does not back them up.
+
+
+  Data: everything HomeDock writes lives in the app data folder (DATA, config,
+  compose-link, packages, dropzone, logs). Back those up if you care about the
+  setup.
+
+
+  License: PolyForm Strict 1.0.0 (noncommercial, personal use). The image is
+  upstream's; this store only packages it.
+developer: BansheeTech
+website: https://www.homedock.cloud
+submitter: MCX
+submission: https://github.com/BansheeTech/HomeDockOS
+repo: https://github.com/BansheeTech/HomeDockOS
+support: https://docs.homedock.cloud
+gallery:
+  - https://raw.githubusercontent.com/BansheeTech/Logo/main/homedock-os/hdos-banner-new.png
+  - https://raw.githubusercontent.com/BansheeTech/Logo/main/homedock-os/hdos-prism-window-manager-1.png
+  - https://raw.githubusercontent.com/BansheeTech/Logo/main/homedock-os/hdos-screen-1.webp
+releaseNotes: >-
+  Initial Umbrel packaging of HomeDock OS 2.6.2.104 (upstream release of
+  08.10.2026). The upstream compose is kept as is, with the host Docker socket
+  mounted so HomeDock can manage containers; the app proxy serves port 80 and
+  TZ defaults to Europe/Istanbul.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
