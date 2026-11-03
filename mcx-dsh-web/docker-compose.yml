@@ -7,7 +7,7 @@ services:
       APP_PORT: 3080
 
   web:
-    image: ghcr.io/ziqzav/mcx-dsh-web:v0.4.14@sha256:7e6fbfe56b2d16c5a3edf94973c14d8b217de02fd7d16ff604fe52bd9531c646
+    image: ghcr.io/ziqzav/mcx-dsh-web:v0.4.14@sha256:e0d1d5cc3d0ddd0ffd482b56d8510bb44da87b73349a43d8382f78885eb2952e
     restart: unless-stopped
     init: true
     stop_grace_period: 30s
