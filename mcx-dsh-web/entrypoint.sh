@@ -20,14 +20,44 @@ if [ -z "$(ls -A /workspace)" ]; then
   chown node:node /workspace
 fi
 
-# dsh web refuses a wildcard --host, so an overlay binds all interfaces instead;
-# the published port is the network boundary.
-HOST=${DSH_HOST:-0.0.0.0}
+# dsh web refuses wildcard hosts, so bind the container's own interface IP.
+# Docker publishes the port; the app proxy is the network boundary.
+if [ -n "${DSH_HOST:-}" ]; then
+  HOST=$DSH_HOST
+else
+  HOST=$(hostname -i 2>/dev/null | tr ' ' '\n' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+
+
+cat > /tmp/listen.patch.yml <<EOF
+- id: webserver
+  config:
+    host: $HOST
+    port: $LISTEN_PORT
+    compression: gzip
+    compressionLevel: 1
+    compressionThresholdBytes: 1024
+EOF
+
+set -- dsh --profile web --patch /tmp/listen.patch.yml --no-open "$@"
+
+if [ -n "${DSH_TRUSTED_HOST:-}" ]; then
+  old_ifs=$IFS
+  IFS=','
+  for trusted in $DSH_TRUSTED_HOST; do
+    [ -n "$trusted" ] && set -- "$@" --trusted-host "$trusted"
+  done
+  IFS=$old_ifs
+fi
+
+export HOME=/home/node
+cd /workspace
+exec gosu node "$@"
+ | head -n 1 || true)
+fi
+if [ -z "$HOST" ] || [ "$HOST" = "0.0.0.0" ]; then
+  echo "entrypoint: could not determine a concrete container IP; set DSH_HOST" >&2
+  exit 1
+fi
 LISTEN_PORT=${DSH_LISTEN_PORT:-3080}
-case "$HOST" in
-  0.0.0.0|127.0.0.1) ;;
-  *) echo "entrypoint: DSH_HOST must be 0.0.0.0 or 127.0.0.1 (got '$HOST')" >&2; exit 1 ;;
-esac
 
 cat > /tmp/listen.patch.yml <<EOF
 - id: webserver
