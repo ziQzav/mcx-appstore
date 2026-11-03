@@ -15,3 +15,5 @@ mkdir -p /workspace
 cd /workspace
 
 exec /app/entrypoint.sh "$@"
+
+# 0.4.14-3: image rebased on smanx/deepseek-harness:devtools (digest pinned in the Dockerfile).
