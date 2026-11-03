@@ -20,23 +20,17 @@ if [ -z "$(ls -A /workspace)" ]; then
   chown node:node /workspace
 fi
 
-# dsh web refuses wildcard hosts, so bind the container's own interface IP.
-# Docker publishes the port; the app proxy is the network boundary.
-if [ -n "${DSH_HOST:-}" ]; then
-  HOST=$DSH_HOST
-else
-  HOST=$(hostname -i 2>/dev/null | awk '{print $1}')
-fi
-if [ -z "$HOST" ] || [ "$HOST" = "0.0.0.0" ]; then
-  echo "entrypoint: could not determine a concrete container IP; set DSH_HOST" >&2
-  exit 1
-fi
-LISTEN_PORT=${DSH_LISTEN_PORT:-3080}
+# dsh web refuses wildcard hosts, so it binds loopback and socat publishes the
+# port on every interface. The app proxy stays the network boundary.
+LISTEN_PORT=${DSH_LISTEN_PORT:-3081}
+EXPOSE_PORT=${DSH_EXPOSE_PORT:-3080}
+
+socat "TCP-LISTEN:${EXPOSE_PORT},fork,reuseaddr" "TCP:127.0.0.1:${LISTEN_PORT}" &
 
 cat > /tmp/listen.patch.yml <<EOF
 - id: webserver
   config:
-    host: $HOST
+    host: 127.0.0.1
     port: $LISTEN_PORT
     compression: gzip
     compressionLevel: 1
