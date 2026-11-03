@@ -4,7 +4,7 @@ name: DSH Web
 tagline: DeepSeek Harness web GUI with the dsh-web plugin pack
 icon: https://raw.githubusercontent.com/zhu1090093659/dsh-web/main/market/dist/tryon/shell/favicon.svg
 category: ai
-version: "0.4.14-2"
+version: "0.4.14-3"
 port: 24681
 description: >-
   DeepSeek Harness (dsh) served as a web app, with the dsh-web plugin pack
@@ -13,12 +13,16 @@ description: >-
   token usage, theme and pet workshop, and the mobile bridge.
 
 
-  Login: the web UI asks for a one-time token. On every start the container
-  writes it to Files -> Apps -> DSH Web -> data -> login-token.txt. Open
-  http://umbrel.local:24681/?token=<the token from that file> once; the token
-  sets a cookie and the plain address then opens the UI. If you open the app
-  through another host name or IP, add it to DSH_TRUSTED_HOST in the app's
-  Environment (otherwise the API answers 403).
+  Packaging: this image is a thin layer on top of the maintained community base
+  image smanx/deepseek-harness (devtools variant), so dsh, node, pnpm, uv and
+  the git/ssh/ffmpeg toolchain follow upstream. Only the plugin profile is
+  added here.
+
+
+  Login: the app opens directly. dsh runs on loopback and the base image's
+  proxy publishes port 3080 to the app proxy, picking up the DSH launch token
+  from the log and redeeming it for the session cookie on the first request.
+  No token file to copy.
 
 
   Models: add a provider key in the app's Environment (DEEPSEEK_API_KEY) or in
@@ -43,10 +47,14 @@ gallery:
   - https://raw.githubusercontent.com/zhu1090093659/dsh-web/main/docs/screenshots/09-task-board.png
   - https://raw.githubusercontent.com/zhu1090093659/dsh-web/main/docs/screenshots/04-git-graph.png
 releaseNotes: >-
-  0.4.14-2: dsh web now binds loopback and socat publishes port 3080, because
-  dsh 0.2.1 rejects wildcard hosts and a single-interface bind could miss the
-  interface the app proxy uses. Same DSH 0.2.1-rc.5 and dsh-web 0.4.14.
-  Previous 0.4.14 build is superseded.
+  0.4.14-3: rebuilt on the maintained smanx/deepseek-harness devtools base
+  image instead of a hand-rolled node build. The base's proxy runs dsh on
+  loopback and publishes 3080 with launch-token auto-login, so no socat and no
+  login-token.txt any more, and Host is rewritten upstream so DSH_TRUSTED_HOST
+  is no longer needed (the old entry still listed a stale LAN IP). Same DSH
+  0.2.1-rc.5 and dsh-web 0.4.14. First start after updating reuses the existing
+  /data profile; the leftover login-token.txt and dsh-startup.log files can be
+  deleted.
 dependencies: []
 path: ""
 defaultUsername: ""
