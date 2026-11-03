@@ -1,0 +1,53 @@
+manifestVersion: 1
+id: mcx-dsh-web
+name: DSH Web
+tagline: DeepSeek Harness web GUI with the dsh-web plugin pack
+icon: https://raw.githubusercontent.com/zhu1090093659/dsh-web/main/market/dist/tryon/shell/favicon.svg
+category: ai
+version: "0.4.14"
+port: 24681
+description: >-
+  DeepSeek Harness (dsh) served as a web app, with the dsh-web plugin pack
+  already mounted on the web profile: task board with cron and multi-agent
+  runs, SSH/SFTP panel, git graph and per-session worktrees, session archive,
+  token usage, theme and pet workshop, and the mobile bridge.
+
+
+  Login: the web UI asks for a one-time token. On every start the container
+  writes it to Files -> Apps -> DSH Web -> data -> login-token.txt. Open
+  http://umbrel.local:24681/?token=<the token from that file> once; the token
+  sets a cookie and the plain address then opens the UI. If you open the app
+  through another host name or IP, add it to DSH_TRUSTED_HOST in the app's
+  Environment (otherwise the API answers 403).
+
+
+  Models: add a provider key in the app's Environment (DEEPSEEK_API_KEY) or in
+  the web UI settings. Without a model the chat does nothing, but the board,
+  files and plugins still load.
+
+
+  Permissions: the container is the sandbox; agent commands run inside it.
+  Only the app data folder and the workspace are mounted.
+
+
+  Data: /data holds profiles, chats and settings, /workspace is where the
+  agents work.
+developer: zhu1090093659
+website: https://github.com/zhu1090093659/dsh-web
+submitter: MCX
+submission: https://github.com/zhu1090093659/dsh-web
+repo: https://github.com/zhu1090093659/dsh-web
+support: https://github.com/zhu1090093659/dsh-web/issues
+gallery:
+  - https://raw.githubusercontent.com/zhu1090093659/dsh-web/main/docs/screenshots/13-hero-main.png
+  - https://raw.githubusercontent.com/zhu1090093659/dsh-web/main/docs/screenshots/09-task-board.png
+  - https://raw.githubusercontent.com/zhu1090093659/dsh-web/main/docs/screenshots/04-git-graph.png
+releaseNotes: >-
+  Initial Umbrel release. Built here: node:24 image with DeepSeek Harness
+  0.2.1-rc.5 and @linxin666/dsh-web-all 0.4.14 preinstalled on the web profile
+  (the three native builds the plugin needs are allowed before install). The
+  one-time login token is copied to data/login-token.txt on every start.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
