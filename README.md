@@ -37,7 +37,7 @@ Compose dışındaki dosyalara (seccomp profili, ek config) güvenme.
 | Mercury Agent | 1.4.2-12 | 24674 | `ghcr.io/ziqzav/mcx-mercury-agent:v1.4.2` |
 | DS Bot | 0.2.6 | 24679 | `ghcr.io/fei2411/ds-bot` (digest pinli) |
 | HomeDock OS | 2.6.2.104 | 24680 | `bansheetech/homedock-os` (digest pinli) |
-| DSH Web | 0.4.14 | 24681 | `ghcr.io/ziqzav/mcx-dsh-web` (kendi build, digest pinli) |
+| DSH Web | 0.4.14-3 | 24681 | `ghcr.io/ziqzav/mcx-dsh-web` (smanx/deepseek-harness devtools tabanı + plugin katmanı, digest pinli) |
 
 Tüm imajlar `tag@sha256:...` biçiminde digest ile pinlidir.
 
@@ -54,7 +54,7 @@ Tüm imajlar `tag@sha256:...` biçiminde digest ile pinlidir.
 |---|---|
 | `.github/workflows/docker.yml` | `ghcr.io/ziqzav/mcx-mercury-agent` → `latest`, `v1.4.2` |
 | `.github/workflows/docker-everything.yml` | `ghcr.io/ziqzav/mcx-everything` → HeyPuter HEAD pinlenir, `latest`, `v1.0.0` |
-| `.github/workflows/docker-dsh-web.yml` | `ghcr.io/ziqzav/mcx-dsh-web` → DSH 0.2.1-rc.5 + dsh-web 0.4.14, `latest`, `v0.4.14` |
+| `.github/workflows/docker-dsh-web.yml` | `ghcr.io/ziqzav/mcx-dsh-web` → `smanx/deepseek-harness:devtools-0.2.1-rc.5` (digest pinli) + dsh-web 0.4.14, `latest`, `v0.4.14-3` |
 
 İkisi de `workflow_dispatch` ile elle çalıştırılabilir.
 
@@ -68,7 +68,7 @@ Tüm imajlar `tag@sha256:...` biçiminde digest ile pinlidir.
 - **Duck-UI:** dahili TLS (caddy) kullanır; ilk ziyarette sertifika uyarısını kabul et.
 - **Hermes Workspace:** giriş parolası = uygulamanın umbrelOS parolası; LLM sağlayıcı anahtarı eklenmeden sohbet çalışmaz.
 - **Mercury Agent:** kullanıcı `mercury`, parola = uygulama parolası; sağlayıcı anahtarı gerekir.
-- **DSH Web:** `dsh web` + dsh-web eklenti paketi (görev panosu, SSH, git graph, kullanım, temalar). Giriş tek seferlik token; her başlangıçta `Files → Apps → DSH Web → data → login-token.txt` dosyasına yazılır (`http://umbrel.local:24681/?token=...`). Model anahtarı app Environment'taki `DEEPSEEK_API_KEY` veya web UI ayarlarından girilir; farklı host/IP için `DSH_TRUSTED_HOST` güncellenmeli.
+- **DSH Web:** `dsh web` + dsh-web eklenti paketi (görev panosu, SSH, git graph, kullanım, temalar). İmaj, bakımlı `smanx/deepseek-harness` devtools tabanı üzerine ince bir katman: dsh/node/pnpm/uv ve araç zinciri upstream'den gelir, bizim eklediğimiz tek şey web profiline kurulu plugin paketi. Taban imajın proxy'si dsh'ı loopback'te çalıştırıp 3080'i yayınlar ve launch token'ı otomatik kullanır → **giriş token'ı dosyası yok, adres doğrudan açılır**. Host upstream'e yeniden yazıldığı için `DSH_TRUSTED_HOST` gerekmez. Model anahtarı app Environment'taki `DEEPSEEK_API_KEY` veya web UI ayarlarından girilir.
 - **HomeDock OS:** tarayıcıda masaüstü + 800+ uygulama kataloğu. Host Docker socket'ini mount eder; HomeDock'un kurduğu uygulamalar umbrelOS dışında, host'ta normal konteyner olarak çalışır ve umbrelOS yedeğine girmez. `Require Umbrel login` açık kalsın; portu internete açma. Lisans PolyForm Strict (ticari olmayan kullanım).
 - **DS Bot:** DeepSeek Harness + ds-bot eklentisi, tarayıcıdan kullanılır. Giriş tek seferlik token ister; her başlangıçta `Files → Apps → DS Bot → data → login-token.txt` dosyasına yazılır (`http://umbrel.local:24679/?token=...`). Model için app Environment'a `DEEPSEEK_API_KEY` gir; farklı bir host/IP ile açacaksan `DSH_TRUSTED_HOST` listesine ekle (yoksa API 403 döner). Botlar konteyner içinde tam yetkiyle çalışır.
 
