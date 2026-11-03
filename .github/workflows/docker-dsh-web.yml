@@ -33,4 +33,4 @@ jobs:
             PLUGIN_VERSION=0.4.14
           tags: |
             ghcr.io/ziqzav/mcx-dsh-web:latest
-            ghcr.io/ziqzav/mcx-dsh-web:v0.4.14
+            ghcr.io/ziqzav/mcx-dsh-web:v0.4.14-2
