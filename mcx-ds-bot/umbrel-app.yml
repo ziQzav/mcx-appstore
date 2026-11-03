@@ -1,0 +1,52 @@
+manifestVersion: 1
+id: mcx-ds-bot
+name: DS Bot
+tagline: A team of long-lived AI Bots on DeepSeek Harness
+icon: https://raw.githubusercontent.com/Fei2411/DS-Bot/v0.2.6/docs/images/logo.svg
+category: ai
+version: "0.2.6"
+port: 24679
+description: >-
+  DS Bot turns DeepSeek Harness into a team: you create Bots, talk to them,
+  and they keep their own memory and workspace between sessions.
+
+
+  This is the Docker build of DS Bot (dsh web + the ds-bot plugin), so it runs
+  headless on the Umbrel and is used from the browser. Add a DeepSeek API key
+  (or another Anthropic-Messages-compatible endpoint) in the app's Environment
+  as DEEPSEEK_API_KEY; without a model key the Bots answer nothing.
+
+
+  Login: the web UI asks for a one-time token. On every start the container
+  writes it to Files -> Apps -> DS Bot -> data -> login-token.txt. Open
+  http://umbrel.local:24679/?token=<the token from that file> once; the token
+  sets a 30-day cookie and the plain address then opens the UI. If you open the
+  app through another host name or IP, add it to DSH_TRUSTED_HOST in the app's
+  Environment (otherwise the API answers 403).
+
+
+  Permissions: the container is the sandbox. Bots run every command with full
+  access inside it, and only the app data folder and the workspace are mounted.
+
+
+  Data: /data holds the team, chats, settings and the cookie key; /workspace is
+  where the Bots work.
+developer: Fei2411
+website: https://github.com/Fei2411/DS-Bot
+submitter: MCX
+submission: https://github.com/Fei2411/DS-Bot
+repo: https://github.com/Fei2411/DS-Bot
+support: https://github.com/Fei2411/DS-Bot/issues
+gallery:
+  - https://raw.githubusercontent.com/Fei2411/DS-Bot/v0.2.6/docs/images/team.png
+  - https://raw.githubusercontent.com/Fei2411/DS-Bot/v0.2.6/docs/images/group.png
+  - https://raw.githubusercontent.com/Fei2411/DS-Bot/v0.2.6/docs/images/usage.png
+releaseNotes: >-
+  Initial Umbrel release of DS Bot 0.2.6, built from the upstream Docker image
+  (ghcr.io/fei2411/ds-bot) and pinned by digest. The entrypoint wrapper copies
+  the one-time login token to data/login-token.txt so it can be read from
+  Files without digging through container logs.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
