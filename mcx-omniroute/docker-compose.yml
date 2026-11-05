@@ -20,6 +20,10 @@ services:
 
   web:
     image: docker.io/diegosouzapw/omniroute:3.8.50@sha256:dbf98ed1efcfeb22786abb504d657e88ccec47e864563d3e7745e7fec56038cb
+    # The upstream image runs as uid 1000, but umbrelOS creates the app data
+    # folder as root; without this the SQLite database cannot be written
+    # (EACCES on /app/data/storage.sqlite).
+    user: "0:0"
     restart: unless-stopped
     init: true
     stop_grace_period: 40s
@@ -32,7 +36,7 @@ services:
       - JWT_SECRET=${APP_PASSWORD:-omniroute-local}
       - API_KEY_SECRET=${APP_PASSWORD:-omniroute-local}
       - STORAGE_ENCRYPTION_KEY=${APP_PASSWORD:-omniroute-local}
-      - INITIAL_PASSWORD=${APP_PASSWORD:-}
+      - INITIAL_PASSWORD=${APP_PASSWORD:-CHANGEME}
       - DATA_DIR=/app/data
       - PORT=20128
       - DASHBOARD_PORT=20128
