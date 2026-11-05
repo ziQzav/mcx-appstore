@@ -1,0 +1,46 @@
+manifestVersion: 1
+id: mcx-omniroute
+name: OmniRoute
+tagline: One endpoint for 1200+ models with quota-aware failover
+icon: https://raw.githubusercontent.com/devolkus/omniroute/release/v3.8.50/images/omniroute.png
+category: ai
+version: "3.8.50"
+port: 24682
+description: >-
+  OmniRoute is an MIT-licensed AI gateway: one OpenAI-compatible endpoint in
+  front of hundreds of providers, with automatic fallback when a free quota or
+  a rate limit runs out. Works with Claude Code, Codex, Cursor, OpenCode, Cline
+  and Copilot style clients.
+
+
+  First start: open the app and log in with the umbrelOS app password
+  (Settings → the app → password). The dashboard creates its database on the
+  first launch, so allow a minute.
+
+
+  Data: /app/data holds the SQLite database, encrypted provider credentials and
+  settings. The bundled Redis is internal only and is not published to the LAN.
+
+
+  Notes: image is the upstream author's published 3.8.50 build, pinned by
+  digest; it is the lean runner-base flavor (no Chromium), so browser-cookie
+  providers are unavailable. The dashboard is proxied behind the umbrelOS app
+  login; do not disable it.
+developer: devolkus
+website: https://github.com/devolkus/omniroute
+submitter: MCX
+submission: https://github.com/devolkus/omniroute
+repo: https://github.com/devolkus/omniroute
+support: https://github.com/devolkus/omniroute/issues
+gallery:
+  - https://raw.githubusercontent.com/devolkus/omniroute/release/v3.8.50/docs/screenshots/01-providers.png
+  - https://raw.githubusercontent.com/devolkus/omniroute/release/v3.8.50/docs/screenshots/02-combos.png
+  - https://raw.githubusercontent.com/devolkus/omniroute/release/v3.8.50/docs/screenshots/03-analytics.png
+releaseNotes: >-
+  Initial MCX package of OmniRoute 3.8.50 (upstream commit ea0cdc5). Bundled
+  internal Redis for rate limiting; secrets derive from the app password, so the
+  dashboard login matches the umbrelOS app password.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

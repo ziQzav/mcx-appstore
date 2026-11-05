@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-omniroute_web_1
+      APP_PORT: 20128
+
+  redis:
+    image: docker.io/library/redis:8.6.5-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
+    volumes:
+      - ${APP_DATA_DIR}/redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  web:
+    image: docker.io/diegosouzapw/omniroute:3.8.50@sha256:dbf98ed1efcfeb22786abb504d657e88ccec47e864563d3e7745e7fec56038cb
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 40s
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      # Secrets derive from the per-app password umbrelOS generates, so the
+      # dashboard login and the app password stay the same value.
+      - JWT_SECRET=${APP_PASSWORD:-omniroute-local}
+      - API_KEY_SECRET=${APP_PASSWORD:-omniroute-local}
+      - STORAGE_ENCRYPTION_KEY=${APP_PASSWORD:-omniroute-local}
+      - INITIAL_PASSWORD=${APP_PASSWORD:-}
+      - DATA_DIR=/app/data
+      - PORT=20128
+      - DASHBOARD_PORT=20128
+      - API_PORT=20129
+      - API_HOST=0.0.0.0
+      - LIVE_WS_PORT=20132
+      - LIVE_WS_HOST=0.0.0.0
+      - LIVE_WS_ALLOWED_ORIGINS=http://localhost:20128
+      - REDIS_URL=redis://redis:6379
+      - OMNIROUTE_MEMORY_MB=2048
+    volumes:
+      - ${APP_DATA_DIR}/data:/app/data

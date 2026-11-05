@@ -38,6 +38,7 @@ Compose dışındaki dosyalara (seccomp profili, ek config) güvenme.
 | DS Bot | 0.2.6 | 24679 | `ghcr.io/fei2411/ds-bot` (digest pinli) |
 | HomeDock OS | 2.6.2.104 | 24680 | `bansheetech/homedock-os` (digest pinli) |
 | DSH Web | 0.4.14-3 | 24681 | `ghcr.io/ziqzav/mcx-dsh-web` (smanx/deepseek-harness devtools tabanı + plugin katmanı, digest pinli) |
+| OmniRoute | 3.8.50 | 24682 | `diegosouzapw/omniroute:3.8.50` (digest pinli) |
 
 Tüm imajlar `tag@sha256:...` biçiminde digest ile pinlidir.
 
