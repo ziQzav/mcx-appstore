@@ -4,7 +4,7 @@ name: Hermes Desktop
 tagline: Hermes Agent on a full Linux desktop, in your browser
 icon: https://github.com/Neoplanetz.png
 category: ai
-version: "1.1.1"
+version: "1.1.1-2"
 port: 24683
 description: >-
   Hermes Agent (Nous Research) pre-installed on an Ubuntu 24.04 XFCE desktop
@@ -33,10 +33,17 @@ gallery:
   - https://raw.githubusercontent.com/Neoplanetz/hermes-agent-desktop-docker/HEAD/assets/demo-browser-cdp.png
   - https://raw.githubusercontent.com/Neoplanetz/hermes-agent-desktop-docker/HEAD/assets/demo-dashboard.png
 releaseNotes: >-
-  Initial MCX package of Hermes Agent Desktop 1.1.1: Ubuntu 24.04 + XFCE,
+  1.1.1-2: the noVNC/VNC/RDP/dashboard password is now shown in umbrelOS as the
+  app credentials (deterministicPassword), so it no longer has to be looked up
+  by hand. The value is the same APP_PASSWORD the container already receives as
+  HERMES_PASSWORD; nothing inside the app changes. Packaging fix only.
+
+
+  1.1.1: initial MCX package of Hermes Agent Desktop — Ubuntu 24.04 + XFCE,
   Hermes Agent pre-installed, noVNC web desktop on 6080, VNC on 5901 and RDP on
   3389 inside the container, CDP Chrome enabled.
 dependencies: []
 path: ""
 defaultUsername: "hermes"
 defaultPassword: ""
+deterministicPassword: true
