@@ -1,0 +1,48 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-hermes-webapp_web_1
+      APP_PORT: 9120
+
+  web:
+    image: docker.io/nousresearch/hermes-agent:v0.23.0@sha256:adb7890916de63245523492be8f68f9d2095fecbec4e2a6dab7960381f0fc002
+    restart: unless-stopped
+    # The image runs /opt/hermes/docker/entrypoint-dispatch.sh and drops to the
+    # hermes user itself; run as root and remap that user to uid/gid 1000 so the
+    # app data folder keeps umbrelOS ownership.
+    stop_grace_period: 30s
+    shm_size: "1g"
+    environment:
+      - HERMES_UID=1000
+      - HERMES_GID=1000
+      - HERMES_HOME=/opt/data
+      - TZ=${TZ:-Europe/Istanbul}
+      # webapp.host=0.0.0.0 makes the dashboard sign-in gate mandatory, so the
+      # bundled username/password provider has to be configured.
+      - HERMES_DASHBOARD_BASIC_AUTH_USERNAME=hermes
+      - HERMES_DASHBOARD_BASIC_AUTH_PASSWORD=${APP_PASSWORD:-CHANGEME}
+      # Stable signing key so sessions survive a container restart.
+      - HERMES_DASHBOARD_BASIC_AUTH_SECRET=${APP_PASSWORD:-mcx-hermes-webapp-local-secret}
+    volumes:
+      - ${APP_DATA_DIR}/data:/opt/data
+    # The webapp block is not settable through env in this image, so write it
+    # with the CLI (idempotent, preserves other keys) and then exec the gateway.
+    command:
+      - sh
+      - -c
+      - |
+        set -e
+        hermes config set webapp.enabled true
+        hermes config set webapp.host 0.0.0.0
+        hermes config set webapp.port 9120
+        exec hermes gateway run
+    healthcheck:
+      # Any answer below 500 means the gateway is listening; with the sign-in
+      # gate the root is a 302/401 rather than 200.
+      test: ["CMD-SHELL", "code=$$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:9120/); [ \"$$code\" -ge 200 ] && [ \"$$code\" -lt 500 ]"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3

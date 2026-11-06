@@ -1,0 +1,58 @@
+manifestVersion: 1
+id: mcx-hermes-webapp
+name: Hermes Webapp
+tagline: Hermes Agent in the browser — the official web workspace
+icon: https://github.com/NousResearch.png
+category: ai
+version: "0.23.0"
+port: 24685
+description: >-
+  The official Hermes Agent web app: the Desktop workspace served by the Hermes
+  gateway and opened in any browser — sessions, profiles, skills, messaging,
+  artifacts, scheduled jobs, the host file tree, git review and the terminal
+  rail. Chats run on the gateway that also serves the CLI and the native apps,
+  so every surface shares one conversation and one queue.
+
+
+  Login: user "hermes" with the umbrelOS app password shown in the app card.
+  The gateway binds 0.0.0.0, so its username/password sign-in gate is mandatory;
+  keep it enabled.
+
+
+  First start: the container writes webapp.enabled / webapp.host / webapp.port
+  into /opt/data/config.yaml, then starts `hermes gateway run`. Add a model
+  provider key inside the app (settings) or in the app environment.
+
+
+  Data: /opt/data holds config.yaml, .env, sessions, memory, skills and gateway
+  state. Files are owned by uid 1000.
+
+
+  Plain HTTP limit: browsers turn off secure-context features (microphone,
+  clipboard read, screen watching) on a non-loopback HTTP address. Umbrel's app
+  proxy is HTTP, so dictation, live voice and clipboard paste stay unavailable
+  unless you put HTTPS in front.
+
+
+  Warning: a signed-in user can run arbitrary commands and agent tools as the
+  container user and reach its credentials. Keep the umbrelOS app login on and
+  never publish port 24685 to the internet.
+developer: Nous Research
+website: https://nousresearch.com
+submitter: MCX
+submission: https://github.com/NousResearch/hermes-agent
+repo: https://github.com/NousResearch/hermes-agent
+support: https://github.com/NousResearch/hermes-agent/issues
+gallery:
+  - https://raw.githubusercontent.com/NousResearch/hermes-agent/main/assets/banner.png
+releaseNotes: >-
+  0.23.0: initial MCX package of the official Hermes Agent web app, built from
+  nousresearch/hermes-agent:v0.23.0 pinned by digest (multi-arch). One
+  container writes the webapp block into /opt/data/config.yaml and runs
+  `hermes gateway run`; the gateway serves the web app on 9120 behind the
+  username/password gate. Data lives in /opt/data, owned by uid 1000.
+dependencies: []
+path: ""
+defaultUsername: "hermes"
+defaultPassword: ""
+deterministicPassword: true
