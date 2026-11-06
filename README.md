@@ -39,7 +39,7 @@ Compose dışındaki dosyalara (seccomp profili, ek config) güvenme.
 | HomeDock OS | 2.6.2.104 | 24680 | `bansheetech/homedock-os` (digest pinli) |
 | DSH Web | 0.4.14-3 | 24681 | `ghcr.io/ziqzav/mcx-dsh-web` (smanx/deepseek-harness devtools tabanı + plugin katmanı, digest pinli) |
 | Hermes Desktop | 1.1.1 | 24683 | `neoplanetz/hermes-desktop-docker:1.1.1` (digest pinli, noVNC masaustu) |
-| Hermes One | 1.0.0-1 | 24684 | `ghcr.io/kasperhonore/hermes-desktop` (KasmVNC, digest pinli) |
+| Hermes One | 1.0.0-2 | 24684 | `ghcr.io/kasperhonore/hermes-desktop` (KasmVNC, digest pinli) |
 | Hermes Webapp | 0.23.0 | 24685 | `nousresearch/hermes-agent:v0.23.0` (resmi gateway webapp, digest pinli) |
 | OmniRoute | 3.8.50 | 24682 | `diegosouzapw/omniroute:3.8.50` (digest pinli) |
 
