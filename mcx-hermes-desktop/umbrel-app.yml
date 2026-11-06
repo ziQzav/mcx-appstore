@@ -1,0 +1,42 @@
+manifestVersion: 1
+id: mcx-hermes-desktop
+name: Hermes Desktop
+tagline: Hermes Agent on a full Linux desktop, in your browser
+icon: https://github.com/Neoplanetz.png
+category: ai
+version: "1.1.1"
+port: 24683
+description: >-
+  Hermes Agent (Nous Research) pre-installed on an Ubuntu 24.04 XFCE desktop
+  that you open in a browser through noVNC. The same :1 session is also
+  reachable over VNC and RDP, so you can watch and steer the agent while it
+  works, including its CDP-driven Chrome for browser automation.
+
+
+  First start: open the app, then sign in to the noVNC prompt with the app
+  password (umbrelOS app password). The desktop user is "hermes". Inside the
+  desktop, the Hermes dashboard runs on localhost:9119 with the same login.
+
+
+  Data: /home/hermes holds the Hermes install, sessions, API keys and skills.
+
+
+  Notes: the image is pinned by digest (multi-arch amd64/arm64). NoVNC, VNC and
+  RDP all share one desktop; keep the umbrelOS app login enabled.
+developer: Neoplanetz
+website: https://github.com/Neoplanetz/hermes-agent-desktop-docker
+submitter: MCX
+submission: https://github.com/Neoplanetz/hermes-agent-desktop-docker
+repo: https://github.com/Neoplanetz/hermes-agent-desktop-docker
+support: https://github.com/Neoplanetz/hermes-agent-desktop-docker/issues
+gallery:
+  - https://raw.githubusercontent.com/Neoplanetz/hermes-agent-desktop-docker/HEAD/assets/demo-browser-cdp.png
+  - https://raw.githubusercontent.com/Neoplanetz/hermes-agent-desktop-docker/HEAD/assets/demo-dashboard.png
+releaseNotes: >-
+  Initial MCX package of Hermes Agent Desktop 1.1.1: Ubuntu 24.04 + XFCE,
+  Hermes Agent pre-installed, noVNC web desktop on 6080, VNC on 5901 and RDP on
+  3389 inside the container, CDP Chrome enabled.
+dependencies: []
+path: ""
+defaultUsername: "hermes"
+defaultPassword: ""

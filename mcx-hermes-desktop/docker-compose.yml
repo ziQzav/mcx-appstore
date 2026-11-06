@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-hermes-desktop_web_1
+      APP_PORT: 6080
+
+  web:
+    image: docker.io/neoplanetz/hermes-desktop-docker:1.1.1@sha256:3e97518013bc25b8310e9f4e7f4ffeef602f4b5f4be9b61a62591778ab53f026
+    restart: unless-stopped
+    init: true
+    shm_size: "2gb"
+    stop_grace_period: 30s
+    environment:
+      - HERMES_USER=hermes
+      # Desktop / VNC / RDP / dashboard password. Defaults to the umbrelOS app
+      # password so the browser prompt and the app password are the same.
+      - HERMES_PASSWORD=${APP_PASSWORD:-hermes123}
+      - HERMES_CDP_BROWSER=true
+    volumes:
+      - ${APP_DATA_DIR}/home:/home/hermes
