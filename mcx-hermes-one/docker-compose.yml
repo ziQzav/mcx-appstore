@@ -9,7 +9,8 @@ services:
   web:
     image: ghcr.io/kasperhonore/hermes-desktop@sha256:f11ac86cfb96b3862c57b31fd95391f9d389f84918165f6ffef8cd37156b942e
     restart: unless-stopped
-    init: true
+    # No `init: true`: the image is s6-overlay based (/init) and refuses to be
+    # anything but PID 1 ("s6-overlay-suexec: fatal: can only run as pid 1").
     shm_size: "1g"
     stop_grace_period: 30s
     environment:

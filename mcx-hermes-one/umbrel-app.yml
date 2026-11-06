@@ -4,7 +4,7 @@ name: Hermes One
 tagline: The Hermes Desktop app, streamed to your browser
 icon: https://raw.githubusercontent.com/KasperHonore/hermes-desktop/main/unraid-templates/icons/hermes-desktop.png
 category: ai
-version: "1.0.0-1"
+version: "1.0.0-2"
 port: 24684
 description: >-
   Hermes One is the official desktop client for Hermes Agent, packaged as a
@@ -36,9 +36,18 @@ gallery:
   - https://raw.githubusercontent.com/KasperHonore/hermes-desktop/main/docs/hermes-desktop.png
 defaultUsername: "hermes"
 releaseNotes: >-
-  Initial MCX package of Hermes One (Hermes Desktop) built from
+  1.0.0-2: two fixes. The container no longer gets Docker's init (tini): the
+  image is s6-overlay based and exited in a restart loop with
+  "s6-overlay-suexec: fatal: can only run as pid 1". The KasmVNC password is now
+  shown in umbrelOS as the app credentials (deterministicPassword), so it no
+  longer has to be looked up by hand; it is the same APP_PASSWORD the container
+  receives as PASSWORD. Container and image are unchanged.
+
+
+  1.0.0: initial MCX package of Hermes One (Hermes Desktop) built from
   KasperHonore/hermes-desktop image, KasmVNC web desktop on port 3000, Local or
   Remote Hermes backend.
 dependencies: []
 path: ""
 defaultPassword: ""
+deterministicPassword: true
