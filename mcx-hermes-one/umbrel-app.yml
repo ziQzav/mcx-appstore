@@ -1,0 +1,44 @@
+manifestVersion: 1
+id: mcx-hermes-one
+name: Hermes One
+tagline: The Hermes Desktop app, streamed to your browser
+icon: https://raw.githubusercontent.com/KasperHonore/hermes-desktop/main/unraid-templates/icons/hermes-desktop.png
+category: ai
+version: "1.0.0-1"
+port: 24684
+description: >-
+  Hermes One is the official desktop client for Hermes Agent, packaged as a
+  container: the real Electron app runs inside a KasmVNC session and you open it
+  from any browser, on desktop or phone, with clipboard sync and auto-resize.
+
+
+  First start: open the app and sign in to the KasmVNC prompt with the app
+  password (umbrelOS app password, user "hermes"). Then choose how Hermes runs:
+  Local (installed inside this container, stored in the app data folder) or
+  Remote (point it at a Hermes Agent backend such as the umbrelOS Hermes Agent
+  app, URL plus token).
+
+
+  Data: /config holds the desktop profile and, in Local mode, the Hermes install
+  under ~/.hermes.
+
+
+  Notes: image pinned by digest, amd64 only. Keep the umbrelOS app login and the
+  KasmVNC password enabled; this session can run shell commands inside the
+  container.
+developer: KasperHonore
+website: https://github.com/KasperHonore/hermes-desktop
+submitter: MCX
+submission: https://github.com/KasperHonore/hermes-desktop
+repo: https://github.com/KasperHonore/hermes-desktop
+support: https://github.com/KasperHonore/hermes-desktop/issues
+gallery:
+  - https://raw.githubusercontent.com/KasperHonore/hermes-desktop/main/docs/hermes-desktop.png
+defaultUsername: "hermes"
+releaseNotes: >-
+  Initial MCX package of Hermes One (Hermes Desktop) built from
+  KasperHonore/hermes-desktop image, KasmVNC web desktop on port 3000, Local or
+  Remote Hermes backend.
+dependencies: []
+path: ""
+defaultPassword: ""

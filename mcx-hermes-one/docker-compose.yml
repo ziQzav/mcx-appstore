@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-hermes-one_web_1
+      APP_PORT: 3000
+
+  web:
+    image: ghcr.io/kasperhonore/hermes-desktop@sha256:f11ac86cfb96b3862c57b31fd95391f9d389f84918165f6ffef8cd37156b942e
+    restart: unless-stopped
+    init: true
+    shm_size: "1g"
+    stop_grace_period: 30s
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Istanbul
+      - TITLE=Hermes One
+      - NO_DECOR=true
+      - DISABLE_AUTH=false
+      # KasmVNC basic auth; defaults to the umbrelOS app password.
+      - CUSTOM_USER=hermes
+      - PASSWORD=${APP_PASSWORD:-hermes123}
+      - HERMES_DESKTOP_DISABLE_GPU=1
+    volumes:
+      - ${APP_DATA_DIR}/config:/config
