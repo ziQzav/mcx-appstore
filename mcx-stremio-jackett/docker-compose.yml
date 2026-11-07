@@ -4,20 +4,28 @@ services:
   app_proxy:
     environment:
       APP_HOST: mcx-stremio-jackett_web_1
-      APP_PORT: 3000
+      APP_PORT: 7000
 
   web:
-    image: docker.io/belmeg/stremio-addon-jackett:v4.2.7@sha256:7823729bd336d251fc8551dd516870bfe87245fd8e80c0c4af8526ab52c81055
+    image: docker.io/tsaridas/jackett-stremio:latest@sha256:5a630b17cfbfe7a12c41e589c6e31407494f6dd41dfaf8007f24a103e77f8f8c
     restart: unless-stopped
     stop_grace_period: 20s
     environment:
       - TZ=${TZ:-Europe/Istanbul}
-      # Set ROOT_PATH only when the addon is served under a subpath by a proxy.
-      - ROOT_PATH=${ROOT_PATH:-}
-    # Stateless: the configuration is encoded in the install URL, so there is
-    # nothing to persist besides the container itself.
+      - PORT=7000
+      # Jackett on this device. Trailing slash is required by the add-on.
+      - JACKETT_HOSTS=${JACKETT_HOSTS:-http://100.68.199.76:9117/}
+      # The API key is set in the app's own environment on the device so it is
+      # never written into this public repository.
+      - JACKETT_APIKEYS=${JACKETT_APIKEYS:-}
+      - MIN_SEED=${MIN_SEED:-5}
+      - MAX_RESULTS=${MAX_RESULTS:-5}
+      - MAX_SIZE=${MAX_SIZE:-10GB}
+      - SEARCH_BY_TYPE=${SEARCH_BY_TYPE:-true}
+      - ADD_BEST_TRACKERS=true
+    # Stateless: no volume, the add-on only talks to Jackett.
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS -o /dev/null http://127.0.0.1:3000/manifest.json"]
+      test: ["CMD-SHELL", "curl -fsS -o /dev/null http://127.0.0.1:7000/manifest.json"]
       interval: 30s
       timeout: 5s
       start_period: 20s
