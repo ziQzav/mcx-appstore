@@ -1,0 +1,53 @@
+manifestVersion: 1
+id: mcx-stremio-jackett
+name: Stremio Jackett Addon
+tagline: Stremio addon that streams from your Jackett indexers
+icon: https://i.imgur.com/tVjqEJP.png
+category: media
+version: "4.2.7"
+port: 24686
+description: >-
+  A Stremio addon that turns the Jackett indexers on this device into streams
+  inside Stremio. It looks the movie or series up on metadata, searches Jackett,
+  ranks the torrents (seeders, size) and returns magnet/torrent links to the
+  Stremio player. Optional Real-Debrid, AllDebrid, Premiumize and TorBox
+  support, plus a metadata provider choice (Cinemeta or TMDB).
+
+
+  Setup (about a minute): open the app, keep the Jackett URL as
+  http://<umbrel-host>:9117, paste the API key from Jackett's dashboard, pick
+  your options and press Install — Stremio opens with the addon. The key stays
+  in the install URL your browser generates; this app stores nothing.
+
+
+  Streaming: Stremio needs a torrent client or a debrid account for playback,
+  exactly as with any other torrent addon. The addon only returns links.
+
+
+  Access: Umbrel login is disabled for this app on purpose, because Stremio
+  clients fetch /manifest.json and /stream on their own and cannot sign in to
+  umbrelOS. Keep the port on your LAN or Tailscale, never on the internet. The
+  Jackett API key is embedded in the addon URL you install, so treat that URL as
+  a secret.
+
+
+  Notes: plain HTTP works for the Stremio desktop and mobile apps on the LAN;
+  Stremio Web runs on HTTPS and needs an HTTPS copy of the addon.
+developer: aymene69
+website: https://github.com/aymene69/stremio-jackett
+submitter: MCX
+submission: https://github.com/aymene69/stremio-jackett
+repo: https://github.com/aymene69/stremio-jackett
+support: https://github.com/aymene69/stremio-jackett/issues
+gallery:
+  - https://i.imgur.com/tVjqEJP.png
+releaseNotes: >-
+  4.2.7: initial MCX package of Stremio Jackett Addon, built from the upstream
+  multi-arch image belmeg/stremio-addon-jackett:v4.2.7 pinned by digest. Serves
+  the configure page and the addon on port 3000 behind the umbrelOS app proxy,
+  with proxy login turned off after install so Stremio can fetch the manifest
+  and streams. No local storage: the configuration lives in the install URL.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

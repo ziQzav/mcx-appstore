@@ -1,0 +1,38 @@
+manifestVersion: 1
+id: mcx-claude-science
+name: Claude Science
+tagline: Anthropic's AI workbench for scientific research — launcher
+icon: https://claude.com/favicon.ico
+category: ai
+version: "0.1.72-beta"
+port: 24687
+description: >-
+  A launcher for Claude Science, Anthropic's AI workbench for scientific
+  research: it runs analyses end to end, records every step, and keeps the
+  artefacts next to the question. This entry is a bookmark page, not a local
+  install — Claude Science is a hosted beta (and a desktop download); nothing in
+  this container analyses your data.
+
+
+  Start: open the app, then "Open Claude Science" for the web product, or pick a
+  macOS/Windows/Linux download. A Claude account is required, and the research
+  features run on Anthropic's side.
+
+
+  Licensing: Claude Science is Anthropic's product under Anthropic's terms; this
+  page only links to it. The Linux build is a single x86_64 binary (~148 MB).
+developer: Anthropic
+website: https://claude.com/product/claude-science
+submitter: MCX
+submission: https://claude.com/product/claude-science
+repo: https://claude.com/product/claude-science
+support: https://claude.com/docs/claude-science/overview
+gallery: []
+releaseNotes: >-
+  0.1.72-beta: initial MCX entry. Bookmark page for Claude Science (hosted beta)
+  with links to the web product and the macOS, Windows and Linux downloads.
+  Nothing is installed or run on the server; this app is a static page.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

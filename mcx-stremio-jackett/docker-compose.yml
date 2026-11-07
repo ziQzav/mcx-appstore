@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-stremio-jackett_web_1
+      APP_PORT: 3000
+
+  web:
+    image: docker.io/belmeg/stremio-addon-jackett:v4.2.7@sha256:7823729bd336d251fc8551dd516870bfe87245fd8e80c0c4af8526ab52c81055
+    restart: unless-stopped
+    stop_grace_period: 20s
+    environment:
+      - TZ=${TZ:-Europe/Istanbul}
+      # Set ROOT_PATH only when the addon is served under a subpath by a proxy.
+      - ROOT_PATH=${ROOT_PATH:-}
+    # Stateless: the configuration is encoded in the install URL, so there is
+    # nothing to persist besides the container itself.
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS -o /dev/null http://127.0.0.1:3000/manifest.json"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3

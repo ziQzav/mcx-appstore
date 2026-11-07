@@ -41,6 +41,8 @@ Compose dışındaki dosyalara (seccomp profili, ek config) güvenme.
 | Hermes Desktop | 1.1.1 | 24683 | `neoplanetz/hermes-desktop-docker:1.1.1` (digest pinli, noVNC masaustu) |
 | Hermes One | 1.0.0-2 | 24684 | `ghcr.io/kasperhonore/hermes-desktop` (KasmVNC, digest pinli) |
 | Hermes Webapp | 0.23.0 | 24685 | `nousresearch/hermes-agent:v0.23.0` (resmi gateway webapp, digest pinli) |
+| Stremio Jackett | 4.2.7 | 24686 | `belmeg/stremio-addon-jackett:v4.2.7` (Stremio eklentisi, digest pinli) |
+| Claude Science | 0.1.72-beta | 24687 | statik başlatıcı sayfası (busybox; ürün barındırılan beta) |
 | OmniRoute | 3.8.50 | 24682 | `diegosouzapw/omniroute:3.8.50` (digest pinli) |
 
 Tüm imajlar `tag@sha256:...` biçiminde digest ile pinlidir.

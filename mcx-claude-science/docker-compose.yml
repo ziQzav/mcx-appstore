@@ -1,0 +1,84 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-claude-science_web_1
+      APP_PORT: 8080
+
+  web:
+    image: busybox:1.36
+    restart: unless-stopped
+    command:
+      - sh
+      - -c
+      - |
+        mkdir -p /www
+        cat > /www/index.html <<'EOF'
+        <!doctype html>
+        <html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Claude Science</title>
+        <style>
+          :root{color-scheme:light dark}
+          *{box-sizing:border-box}
+          body{margin:0;font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+               background:#faf9f5;color:#1f1e1c;display:flex;justify-content:center;padding:48px 20px}
+          @media (prefers-color-scheme:dark){body{background:#1a1916;color:#ece9e2}}
+          main{width:100%;max-width:640px}
+          h1{font-size:32px;line-height:1.2;margin:0 0 8px;letter-spacing:-.02em}
+          p.lead{margin:0 0 28px;opacity:.8}
+          a.btn{display:inline-block;background:#c96442;color:#fff;text-decoration:none;
+                padding:12px 20px;border-radius:10px;font-weight:600}
+          a.btn:hover{filter:brightness(1.08)}
+          .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:28px 0}
+          .card{border:1px solid rgba(128,128,128,.28);border-radius:12px;padding:14px 16px;text-decoration:none;color:inherit}
+          .card:hover{border-color:#c96442}
+          .card b{display:block;font-size:15px}
+          .card span{font-size:13px;opacity:.7}
+          ul{margin:0;padding-left:20px;opacity:.85}
+          li{margin:6px 0}
+          footer{margin-top:32px;font-size:13px;opacity:.6}
+        </style>
+        </head>
+        <body>
+        <main>
+          <h1>Claude Science</h1>
+          <p class="lead">Anthropic's AI workbench for scientific research. This page is a
+          launcher: the product runs on Anthropic's side (or as a desktop app), not on this server.</p>
+
+          <a class="btn" href="https://claude.com/product/claude-science" target="_blank" rel="noopener">
+            Open Claude Science
+          </a>
+
+          <div class="grid">
+            <a class="card" href="https://downloads.claude.ai/claude-science/latest/mac-arm64.dmg">
+              <b>macOS (Apple silicon)</b><span>.dmg download</span></a>
+            <a class="card" href="https://downloads.claude.ai/claude-science/latest/mac-x64.dmg">
+              <b>macOS (Intel)</b><span>.dmg download</span></a>
+            <a class="card" href="https://downloads.claude.ai/claude-science/latest/windows-x64.exe">
+              <b>Windows</b><span>.exe download</span></a>
+            <a class="card" href="https://downloads.claude.ai/claude-science/latest/linux-x64">
+              <b>Linux</b><span>x86_64 binary</span></a>
+          </div>
+
+          <ul>
+            <li>Requires a Claude account; the beta is free to start for academic and nonprofit researchers.</li>
+            <li>Analyses, notebooks and artefacts stay with your account, not on this device.</li>
+            <li>Docs: <a href="https://claude.com/docs/claude-science/overview" target="_blank" rel="noopener">claude.com/docs/claude-science</a></li>
+          </ul>
+
+          <footer>MCX bookmark app · nothing is installed or executed in this container.</footer>
+        </main>
+        </body>
+        </html>
+        EOF
+        exec httpd -f -p 8080 -h /www
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      start_period: 5s
+      retries: 3
