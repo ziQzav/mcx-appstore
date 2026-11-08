@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-openmausbot_web_1
+      APP_PORT: 8799
+
+  web:
+    image: ghcr.io/milind-soni/openmausbot:latest@sha256:25e29c06048ee2ced91324b65579c497414c73bbccc379d465f684c96a4ba248
+    restart: unless-stopped
+    # The bots' browsers leave exited processes behind and Chrome needs more
+    # shared memory than Docker's 64 MB default.
+    init: true
+    shm_size: "512m"
+    stop_grace_period: 30s
+    environment:
+      - HOME=/data
+      # LAN mode: binds 0.0.0.0 and accepts only private source addresses, so
+      # the umbrelOS app proxy (a docker network address) gets through.
+      - OMB_LAN=1
+      - OMB_PORT=8799
+      - OMB_WEBHOOK_PORT=8800
+      - OMB_SERVER_NAME=mcx-umbrel
+      - OMB_PUBLIC_URL=${OMB_PUBLIC_URL:-http://umbrel.local:24690}
+      - TZ=${TZ:-Europe/Istanbul}
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:8799/api/health',{signal:AbortSignal.timeout(4000)}).then(async r=>{if(!r.ok||!(await r.text()).includes('openmausbot'))process.exit(1)}).catch(()=>process.exit(1))"
+      interval: 15s
+      timeout: 5s
+      start_period: 40s
+      retries: 5

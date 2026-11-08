@@ -1,0 +1,51 @@
+manifestVersion: 1
+id: mcx-openmausbot
+name: OpenMausBot
+tagline: Your own team of AI bots, in a chat app
+icon: https://raw.githubusercontent.com/milind-soni/OpenMausBot/master/public/app-icon-512.png
+category: ai
+version: "0.1.149"
+port: 24690
+description: >-
+  OpenMausBot is a self-hosted harness for a team of AI bots: every bot in the
+  sidebar is a real agent with its own personality, model, workspace and
+  connected apps. It runs Claude Code and Codex locally inside the container,
+  streams their work into a chat UI over SSE, and asks for approval before the
+  actions that matter.
+
+
+  Connect: open the app and pair it with the desktop or mobile MausBot app, or
+  a browser — the container prints one pairing link. Run
+  "openmausbot pair" in the app's terminal to print a fresh link, then paste it
+  into MausBot under + → Connect to a server.
+
+
+  Engines: sign in to Claude Code and Codex from the app's engine setup (Codex
+  uses a device code, no terminal needed). Logins, transcripts, keys and bot
+  state live in /data, so they survive restarts and updates.
+
+
+  Network: the server trusts loopback and private networks by default; this
+  package runs it with LAN mode on and the umbrelOS app login in front. Keep
+  the app on your LAN or Tailscale — never publish the port to the internet.
+
+
+  Heavy: the image bundles Node, Chrome and the agent CLIs; expect ~1.5–2 GB of
+  disk and roughly 700 MB–1.5 GB of RAM with a bot running.
+developer: milind-soni
+website: https://www.openmausbot.com
+submitter: MCX
+submission: https://github.com/milind-soni/OpenMausBot
+repo: https://github.com/milind-soni/OpenMausBot
+support: https://github.com/milind-soni/OpenMausBot/issues
+gallery:
+  - https://raw.githubusercontent.com/milind-soni/OpenMausBot/master/public/app-icon-512.png
+releaseNotes: >-
+  0.1.149: initial MCX package of the OpenMausBot harness server, built from
+  the upstream multi-arch image ghcr.io/milind-soni/openmausbot pinned by
+  digest. One container on port 8799 with OMB_LAN=1, data in /data, umbrelOS
+  app login in front. Pair once with the MausBot app or a browser.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
