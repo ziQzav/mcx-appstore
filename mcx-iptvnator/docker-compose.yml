@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-iptvnator_web_1
+      # The image serves nginx on 80 and proxies /api to its own Node backend.
+      APP_PORT: 80
+
+  web:
+    image: docker.io/4gray/iptvnator:0.25.0@sha256:88cb0cae6c6efd8c07b4c5579be3150b9f714364498c6fdcabc302808804cab2
+    restart: unless-stopped
+    stop_grace_period: 30s
+    environment:
+      - TZ=${TZ:-Europe/Istanbul}
+      # Same-origin layout kept from the image: PWA on nginx, backend under /api.
+      - BACKEND_URL=/api
+      - PORT=3000
+      # Shared library in SQLite on the app volume instead of browser storage.
+      - IPTVNATOR_STORAGE=server
+      - IPTVNATOR_DATA_DIR=/data
+      # Keep the PWA and its backend in step for large M3U documents.
+      - IPTVNATOR_MAX_DOCUMENT_MB=64
+      # LAN providers and local IPTV middleware live on private addresses.
+      # Safe only because umbrelOS app login stays in front of the port.
+      - IPTVNATOR_PROXY_ALLOW_PRIVATE_NETWORKS=1
+    volumes:
+      # databases/iptvnator.db plus its -wal/-shm files.
+      - ${APP_DATA_DIR}/data:/data

@@ -1,0 +1,69 @@
+manifestVersion: 1
+id: mcx-iptvnator
+name: IPTVnator
+tagline: M3U, Xtream and Stalker IPTV player as a self-hosted PWA
+icon: https://raw.githubusercontent.com/4gray/iptvnator/v0.25.0/apps/web/src/assets/icons/favicon.512x512.png
+category: media
+version: "0.25.0"
+port: 24692
+description: >-
+  IPTVnator is an open-source IPTV player that runs as a browser PWA with its
+  own backend in the same container: local or remote M3U/M3U8 playlists,
+  Xtream Codes accounts and Stalker/Ministra portals, live TV with groups and
+  search, movies and series with posters, seasons, watch history and resume
+  positions, favourites, 21 languages and light/dark themes.
+
+
+  This is the self-hosted browser build, not the Electron desktop app. The
+  desktop-only parts are absent: XMLTV/EPG panels and multi-channel guide,
+  MPV/VLC launching, the download manager and the phone remote. Everything
+  else works in the browser on this device, a phone or a tablet.
+
+
+  Use it: open the app, add a source (M3U URL, Xtream host/user/password or a
+  Stalker portal). Sources are kept in a server database on the app volume, so
+  any device that opens the same address sees the same library; favourites,
+  progress and "recently viewed" each need their own sync opt-in under
+  Settings -> Server.
+
+
+  Playback: the browser plays HLS and MP4 directly. If a provider stream does
+  not play inline, copy its URL and open it in VLC/MPV on a computer — the
+  container cannot launch desktop players. LAN providers and local middleware
+  (Threadfin, xTeVe, dispatcharr, TVHeadend) are allowed because
+  IPTVNATOR_PROXY_ALLOW_PRIVATE_NETWORKS is on for this package; that also
+  means the backend can reach any private address on your network, so keep
+  umbrelOS login enabled and never publish the port.
+
+
+  Data: /data/databases/iptvnator.db (SQLite) holds source definitions and the
+  shared library, including provider credentials in clear text. It is part of
+  app-data backups; stop the app or copy the -wal file too when backing up by
+  hand.
+
+
+  HTTPS note: over plain HTTP the browser does not register the service worker,
+  so the app is not "installable" as a PWA and no offline shell is cached. The
+  app itself works; use HTTPS/Tailscale Serve if you want the install prompt.
+developer: 4gray
+website: https://4gray.github.io/iptvnator/
+submitter: MCX
+submission: https://github.com/4gray/iptvnator
+repo: https://github.com/4gray/iptvnator
+support: https://github.com/4gray/iptvnator/issues
+gallery:
+  - https://raw.githubusercontent.com/4gray/iptvnator/v0.25.0/apps/website/public/blog/v0-25/screenshots/dashboard-light.png
+  - https://raw.githubusercontent.com/4gray/iptvnator/v0.25.0/apps/website/public/blog/v0-25/screenshots/dashboard-live-channels-light.png
+  - https://raw.githubusercontent.com/4gray/iptvnator/v0.25.0/apps/website/public/blog/v0-25/screenshots/xtream-vod-details-light.png
+  - https://raw.githubusercontent.com/4gray/iptvnator/v0.25.0/apps/website/public/blog/v0-25/screenshots/xtream-series-season-open-light.png
+releaseNotes: >-
+  0.25.0: initial MCX package of IPTVnator (MIT), the official self-hosted PWA
+  image pinned by digest (amd64 + arm64). nginx serves the Angular PWA and
+  proxies /api to the bundled Express backend; source definitions live in the
+  server database on /data. EPG/XMLTV views, external-player launching and the
+  download manager are desktop-only and not part of this image. Umbrel login
+  stays on; the app has no accounts of its own.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
