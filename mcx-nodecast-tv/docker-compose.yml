@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-nodecast-tv_web_1
+      APP_PORT: 3000
+
+  web:
+    image: ghcr.io/technomancer702/nodecast-tv:2.2.8@sha256:92eab8088e88cfaca81422e139471b17b0ec178f8ffa428a7a4be35eb078100d
+    restart: unless-stopped
+    # Active HLS sessions and ffmpeg transcodes need time to exit cleanly.
+    stop_grace_period: 30s
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - TZ=${TZ:-Europe/Istanbul}
+      # umbrelOS app proxy connects from a private Docker network; keep
+      # X-Forwarded-For/-Proto trusted so logins and cookies work behind it.
+      - TRUST_PROXY=${TRUST_PROXY:-loopback, linklocal, uniquelocal}
+    volumes:
+      # content.db, security.json, sync cache and transcode cache.
+      - ${APP_DATA_DIR}/data:/app/data

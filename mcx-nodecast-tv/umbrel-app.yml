@@ -1,0 +1,69 @@
+manifestVersion: 1
+id: mcx-nodecast-tv
+name: NodeCast TV
+tagline: IPTV player for Live TV, EPG, movies and series
+icon: https://raw.githubusercontent.com/ziQzav/mcx-appstore/main/mcx-nodecast-tv/icon.png
+category: media
+version: "2.2.8"
+port: 24691
+description: >-
+  NodeCast TV is a browser IPTV player for an Xtream Codes account or an M3U
+  playlist: live channels with fast zapping and category search, a 24-hour EPG
+  grid, movie and series libraries with posters and episode lists, and one
+  favourites list across all three. It stays fast on large providers (7000+
+  channels) with virtual scrolling and batch rendering.
+
+
+  First open: create the admin account (any username, password of 6+ characters).
+  That account is the app's own login, separate from the umbrelOS login. Add
+  viewer accounts later from Settings; viewers cannot change sources or
+  settings.
+
+
+  Use it: Settings -> Content Sources, add the Xtream Codes host/username/
+  password or an M3U URL, then Refresh Sources. Enigma2 receivers work through
+  their OpenWebif bouquet M3U.
+
+
+  Playback: H.264/AAC plays directly in the browser. HEVC, AV1 and Dolby
+  (AC3/EAC3) audio are transcoded on the server by the bundled FFmpeg, and
+  "Force Backend Proxy" fixes CORS-blocked or middleware (Threadfin, xTeVe,
+  dispatcharr, TVHeadend) streams.
+
+
+  Hardware transcoding: the container runs on CPU only by default, so a 1080p
+  transcode uses software x264. VAAPI/QSV needs /dev/dri and NVENC needs the
+  NVIDIA runtime; both must be added to the app's compose by hand, because a
+  device mount would break installs on hosts without a GPU. Settings ->
+  Transcoding shows what was detected.
+
+
+  Data: /app/data holds content.db (SQLite), security.json (login secrets),
+  the sync cache and the transcode cache. It is included in app-data backups;
+  keep it when reinstalling.
+
+
+  Keep "Require Umbrel login" on: the app has no rate limit against the open
+  internet, and the port must never be published outside your LAN or Tailscale.
+developer: technomancer702
+website: https://github.com/technomancer702/nodecast-tv
+submitter: MCX
+submission: https://github.com/technomancer702/nodecast-tv
+repo: https://github.com/technomancer702/nodecast-tv
+support: https://github.com/technomancer702/nodecast-tv/issues
+gallery:
+  - https://raw.githubusercontent.com/technomancer702/nodecast-tv/v2.2.8/public/img/screenshots/screenshot-dashboard.png
+  - https://raw.githubusercontent.com/technomancer702/nodecast-tv/v2.2.8/public/img/screenshots/screenshot-1.png
+  - https://raw.githubusercontent.com/technomancer702/nodecast-tv/v2.2.8/public/img/screenshots/screenshot-2.png
+  - https://raw.githubusercontent.com/technomancer702/nodecast-tv/v2.2.8/public/img/screenshots/screenshot-3.png
+  - https://raw.githubusercontent.com/technomancer702/nodecast-tv/v2.2.8/public/img/screenshots/screenshot-4.png
+releaseNotes: >-
+  2.2.8: initial MCX package of NodeCast TV (GPL-3.0), the upstream multi-arch
+  image pinned by digest. Live TV, EPG, movies and series from
+  Xtream Codes or M3U, favourites, user roles, OIDC SSO and FFmpeg
+  remux/transcode in one container. The admin account is created on first open;
+  data and login secrets live in /app/data. Umbrel login stays on.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

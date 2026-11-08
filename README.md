@@ -44,6 +44,7 @@ Compose dışındaki dosyalara (seccomp profili, ek config) güvenme.
 | Stremio Jackett | 1.1.6 | 24686 | `tsaridas/jackett-stremio` (Stremio eklentisi, Jackett env ile önceden yapılandırılmış, digest pinli) |
 | Gopeed | 1.9.3 | 24689 | `liwei2633/gopeed:v1.9.3` (indirme yöneticisi, digest pinli) |
 | OpenMausBot | 0.1.149 | 24690 | `ghcr.io/milind-soni/openmausbot` (AI bot harness, digest pinli) |
+| NodeCast TV | 2.2.8 | 24691 | `ghcr.io/technomancer702/nodecast-tv:2.2.8` (IPTV oynatıcı, çok mimari, digest pinli) |
 | Claude Science | 0.1.72-beta | 24687 | statik başlatıcı sayfası (busybox; ürün barındırılan beta) |
 | OmniRoute | 3.8.50 | 24682 | `diegosouzapw/omniroute:3.8.50` (digest pinli) |
 
@@ -79,6 +80,7 @@ Tüm imajlar `tag@sha256:...` biçiminde digest ile pinlidir.
 - **DSH Web:** `dsh web` + dsh-web eklenti paketi (görev panosu, SSH, git graph, kullanım, temalar). İmaj, bakımlı `smanx/deepseek-harness` devtools tabanı üzerine ince bir katman: dsh/node/pnpm/uv ve araç zinciri upstream'den gelir, bizim eklediğimiz tek şey web profiline kurulu plugin paketi. Taban imajın proxy'si dsh'ı loopback'te çalıştırıp 3080'i yayınlar ve launch token'ı otomatik kullanır → **giriş token'ı dosyası yok, adres doğrudan açılır**. Host upstream'e yeniden yazıldığı için `DSH_TRUSTED_HOST` gerekmez. Model anahtarı app Environment'taki `DEEPSEEK_API_KEY` veya web UI ayarlarından girilir.
 - **HomeDock OS:** tarayıcıda masaüstü + 800+ uygulama kataloğu. Host Docker socket'ini mount eder; HomeDock'un kurduğu uygulamalar umbrelOS dışında, host'ta normal konteyner olarak çalışır ve umbrelOS yedeğine girmez. `Require Umbrel login` açık kalsın; portu internete açma. Lisans PolyForm Strict (ticari olmayan kullanım).
 - **DS Bot:** DeepSeek Harness + ds-bot eklentisi, tarayıcıdan kullanılır. Giriş tek seferlik token ister; her başlangıçta `Files → Apps → DS Bot → data → login-token.txt` dosyasına yazılır (`http://umbrel.local:24679/?token=...`). Model için app Environment'a `DEEPSEEK_API_KEY` gir; farklı bir host/IP ile açacaksan `DSH_TRUSTED_HOST` listesine ekle (yoksa API 403 döner). Botlar konteyner içinde tam yetkiyle çalışır.
+- **NodeCast TV:** Xtream Codes / M3U IPTV oynatıcı (canlı TV, 24 saatlik EPG, film/dizi, favoriler). İlk açılışta **kendi** admin hesabını oluşturur (en az 6 karakter); bu, umbrelOS girişinden ayrıdır. Kaynaklar `Settings → Content Sources` içine eklenir. FFmpeg imajda hazır: H.264/AAC doğrudan oynar, HEVC/AC3 sunucuda çevrilir. **Donanım hızlandırma varsayılan kapalı** — `/dev/dri` (VAAPI/QSV) veya NVIDIA runtime mount'u host'a bağlı olduğu için compose'a eklenmedi; GPU'suz cihazlarda kurulumu bozmamak için bilinçli tercih. Veri `/app/data` (content.db, security.json) app-data yedeğine girer. `Require Umbrel login` açık kalsın, portu internete açma.
 
 ## Yeni uygulama ekleme
 
