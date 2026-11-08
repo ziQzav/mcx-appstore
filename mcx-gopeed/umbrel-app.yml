@@ -1,0 +1,39 @@
+manifestVersion: 1
+id: mcx-gopeed
+name: Gopeed
+tagline: Fast multi-protocol download manager
+icon: https://raw.githubusercontent.com/dennysubke/dennys-umbrel-app-gallery/main/denny-gopeed/logo.png
+category: files
+version: "1.9.3"
+port: 24689
+description: >-
+  Gopeed is a modern open-source download manager written in Go and Flutter:
+  HTTP/HTTPS, BitTorrent and magnet links through one queue, with multiple
+  connections per task, resumable downloads, per-task speed limits and a web UI
+  that also works from a phone.
+
+
+  Downloads land in the device's shared Downloads folder, so the umbrelOS Files
+  app sees them at /Home/Downloads; Gopeed's own state (tasks, settings) lives
+  in the app data folder.
+
+
+  BitTorrent: add a magnet link or a .torrent file and Gopeed seeds it back
+  until the ratio or the seeding time you set. Nothing is exposed publicly.
+developer: GopeedLab
+website: https://gopeed.com
+submitter: MCX
+submission: https://github.com/GopeedLab/gopeed
+repo: https://github.com/GopeedLab/gopeed
+support: https://github.com/GopeedLab/gopeed/issues
+gallery:
+  - https://raw.githubusercontent.com/dennysubke/dennys-umbrel-app-gallery/main/denny-gopeed/logo.png
+releaseNotes: >-
+  1.9.3: current upstream release, packaged from the maintained community image
+  liwei2633/gopeed pinned by digest. Downloads go to /Home/Downloads, state to
+  the app data folder, the container runs as uid 1000. Use this instead of the
+  older 1.6.11 entry in third-party stores.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""

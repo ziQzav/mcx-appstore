@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: mcx-gopeed_web_1
+      APP_PORT: 9999
+
+  web:
+    image: docker.io/liwei2633/gopeed:v1.9.3@sha256:3ad6274077eb81282f0782efb9824783bb2f969c3a4ce966f0d959cc53c23eae
+    restart: unless-stopped
+    stop_grace_period: 30s
+    environment:
+      # Match the umbrelOS user so the shared Downloads folder and the app data
+      # stay writable without running the container as root.
+      - PUID=1000
+      - PGID=1000
+      - UMASK=022
+      - TZ=${TZ:-Europe/Istanbul}
+    volumes:
+      - ${UMBREL_ROOT}/home/Downloads:/app/Downloads
+      - ${APP_DATA_DIR}/home:/app/storage
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:9999/ || curl -fsS -o /dev/null http://127.0.0.1:9999/"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
