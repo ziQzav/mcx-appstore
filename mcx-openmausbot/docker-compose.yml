@@ -6,9 +6,22 @@ services:
       APP_HOST: mcx-openmausbot_web_1
       APP_PORT: 8799
 
+  # One-shot: umbrelOS creates the app data folder as root, the image runs as
+  # uid 1001 (maus). Hand /data over before the server starts.
+  perms:
+    image: busybox:1.36
+    restart: "no"
+    user: "0:0"
+    command: ["sh", "-c", "chown -R 1001:1001 /data"]
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+
   web:
     image: ghcr.io/milind-soni/openmausbot:latest@sha256:25e29c06048ee2ced91324b65579c497414c73bbccc379d465f684c96a4ba248
     restart: unless-stopped
+    depends_on:
+      perms:
+        condition: service_completed_successfully
     # The bots' browsers leave exited processes behind and Chrome needs more
     # shared memory than Docker's 64 MB default.
     init: true

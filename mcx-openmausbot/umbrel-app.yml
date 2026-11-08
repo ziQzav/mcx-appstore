@@ -4,7 +4,7 @@ name: OpenMausBot
 tagline: Your own team of AI bots, in a chat app
 icon: https://raw.githubusercontent.com/milind-soni/OpenMausBot/master/public/app-icon-512.png
 category: ai
-version: "0.1.149"
+version: "0.1.149-2"
 port: 24690
 description: >-
   OpenMausBot is a self-hosted harness for a team of AI bots: every bot in the
@@ -41,6 +41,11 @@ support: https://github.com/milind-soni/OpenMausBot/issues
 gallery:
   - https://raw.githubusercontent.com/milind-soni/OpenMausBot/master/public/app-icon-512.png
 releaseNotes: >-
+  0.1.149-2: a one-shot perms service hands /data to uid 1001 (maus) before the
+  server starts; without it the container crash-looped on
+  "EACCES: mkdir /data/.openmausbot". Container and image are unchanged.
+
+
   0.1.149: initial MCX package of the OpenMausBot harness server, built from
   the upstream multi-arch image ghcr.io/milind-soni/openmausbot pinned by
   digest. One container on port 8799 with OMB_LAN=1, data in /data, umbrelOS
